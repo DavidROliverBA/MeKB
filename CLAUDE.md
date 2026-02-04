@@ -29,6 +29,8 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 
 ## Note Types
 
+### Core Types
+
 | Type         | Purpose                     | Template                |
 | ------------ | --------------------------- | ----------------------- |
 | **Daily**    | Daily journal and capture   | `Templates/Daily.md`    |
@@ -37,14 +39,22 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | **Task**     | Things to do                | `Templates/Task.md`     |
 | **Project**  | Multi-task initiatives      | `Templates/Project.md`  |
 | **Meeting**  | Meeting notes               | `Templates/Meeting.md`  |
-| **Person**   | People you know             | `Templates/Person.md`   |
+| **Person**   | People you know (CRM)       | `Templates/Person.md`   |
 | **Resource** | Links, books, videos        | `Templates/Resource.md` |
+
+### Professional Types
+
+| Type           | Purpose                      | Template                   |
+| -------------- | ---------------------------- | -------------------------- |
+| **Decision**   | Track decisions with context | `Templates/Decision.md`    |
+| **ActionItem** | Meeting actions with owners  | `Templates/ActionItem.md`  |
+| **Interaction**| Log conversations/meetings   | `Templates/Interaction.md` |
 
 **Three Pillars:**
 
 - **Things** - People, places, tools (root directory)
-- **Ideas** - Notes, concepts, resources (root directory)
-- **Moments** - Daily notes, meetings, tasks (Daily/ folder or root)
+- **Ideas** - Notes, concepts, decisions, resources (root directory)
+- **Moments** - Daily notes, meetings, tasks, interactions (Daily/ folder or root)
 
 ## Skills Reference
 
@@ -70,14 +80,42 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | `/concept <title>` | Create concept definition |
 | `/person <name>`   | Create person note        |
 | `/weblink <url>`   | Save URL with summary     |
+| `/clip <url>`      | Web clipper with summary  |
+| `/voice`           | Voice note transcription  |
 
-### Find
+### Find & Discover
 
-| Skill              | Purpose                |
-| ------------------ | ---------------------- |
-| `/q <search>`      | Search all notes       |
-| `/recent`          | Show recently modified |
-| `/related <topic>` | Find connected notes   |
+| Skill              | Purpose                          |
+| ------------------ | -------------------------------- |
+| `/q <search>`      | Keyword search all notes         |
+| `/search <query>`  | Semantic search by meaning       |
+| `/recent`          | Show recently modified           |
+| `/related <topic>` | Find connected notes             |
+| `/suggest`         | AI-powered link suggestions      |
+
+### Review & Reflect
+
+| Skill      | Purpose                              |
+| ---------- | ------------------------------------ |
+| `/review`  | Spaced repetition - resurface old notes |
+| `/weekly`  | Generate weekly summary              |
+| `/stale`   | Find notes needing verification      |
+
+### Relationships (CRM)
+
+| Skill               | Purpose                        |
+| ------------------- | ------------------------------ |
+| `/people`           | Network dashboard              |
+| `/people reconnect` | Who to reach out to            |
+| `/people met <name>`| Log an interaction             |
+| `/people search`    | Find people by expertise       |
+
+### Integrations
+
+| Skill       | Purpose                         |
+| ----------- | ------------------------------- |
+| `/calendar` | Sync calendar, create meeting notes |
+| `/readwise` | Sync highlights from Readwise   |
 
 ### Maintenance
 
@@ -98,7 +136,15 @@ created: YYYY-MM-DD
 tags: []
 ```
 
-### Optional: Classification (security)
+### Quality Tracking (optional)
+
+```yaml
+verified: YYYY-MM-DD    # Last time content was checked
+freshness: current      # current | recent | stale
+confidence: high        # high | medium | low
+```
+
+### Classification (security)
 
 ```yaml
 classification: public | personal | confidential | secret
@@ -111,49 +157,68 @@ classification: public | personal | confidential | secret
 | `confidential` | Sensitive              | Need-to-know only    |
 | `secret`       | Highly sensitive       | Never share; encrypt |
 
-Default (no field) = `personal`.
-
-### Optional: Attribution (collaboration)
-
-```yaml
-source: null # Where it came from
-author: null # Who wrote it (if not you)
-contributors: [] # Others who contributed
-via: null # How you received it
-```
-
 ### Type-Specific Fields
 
 **Task:**
-
 ```yaml
 completed: false
 due: null
 project: null
+priority: medium
 ```
 
 **Meeting:**
-
 ```yaml
 date: YYYY-MM-DD
 attendees: []
 ```
 
-**Person:**
-
+**Person (CRM):**
 ```yaml
 role: null
 organisation: null
+relationship_type: colleague | client | vendor | friend | mentor
+last_contact: null
+contact_frequency: monthly
+next_followup: null
+expertise: []
+```
+
+**Decision:**
+```yaml
+status: proposed | approved | rejected
+context: null
+alternatives: []
+decision: null
+reasoning: null
+deciders: []
+date_decided: null
+```
+
+**ActionItem:**
+```yaml
+assigned_to: null
+due: null
+source_meeting: null
+status: pending | in_progress | completed
+```
+
+**Interaction:**
+```yaml
+person: null
+date: YYYY-MM-DD
+interaction_type: meeting | call | email | message
+summary: null
+next_steps: []
 ```
 
 **Resource:**
-
 ```yaml
 url: <URL>
+read_status: unread | reading | read
 ```
 
 **Project:**
-
 ```yaml
 status: active | paused | completed
 ```
@@ -167,10 +232,9 @@ status: active | paused | completed
 ```
 
 Examples:
-
 - `Note - How to learn effectively.md`
 - `Person - Jane Smith.md`
-- `Task - Review proposal.md`
+- `Decision - API Strategy.md`
 - `Daily/2026/2026-02-04.md`
 
 ### Wiki-Links
@@ -180,6 +244,7 @@ Link notes with double brackets:
 ```markdown
 See [[Note - My other note]] for details.
 Met with [[Person - Jane Smith]] today.
+Decision: [[Decision - API Strategy]]
 ```
 
 ### Tags
@@ -200,17 +265,17 @@ Flat tags like `important`, `idea`, `review` are fine too.
 
 3. **Don't over-organise** - Start messy, structure emerges. Premature organisation kills flow.
 
-4. **Use search** - `/q` finds anything. Don't worry about perfect filing.
+4. **Use search** - `/q` for exact terms, `/search` for concepts.
 
-5. **Review weekly** - Spend 15 minutes linking orphan notes and tidying.
+5. **Review regularly** - Use `/review` daily and `/weekly` on Fridays.
 
 6. **Capture first, process later** - Get it out of your head. Polish is optional.
 
-7. **One note per concept** - If you keep writing about X, it deserves its own note.
+7. **Track decisions** - Use Decision notes for choices you'll want to remember.
 
-8. **Backlinks are magic** - Click "Backlinks" to see what references the current note.
+8. **Maintain relationships** - Use `/people reconnect` weekly to stay connected.
 
-9. **Classification is optional** - Only mark sensitive stuff. Most notes are fine as-is.
+9. **Verify old notes** - Use `/stale` monthly to keep knowledge current.
 
 10. **Git is your friend** - Commit often. History = free backup + audit trail.
 
@@ -222,9 +287,9 @@ Flat tags like `important`, `idea`, `review` are fine too.
 
 3. **Check before sharing** - Search `classification: confidential` before publishing.
 
-4. **Encrypt if needed** - Use git-crypt, Cryptomator, or encrypted drives for sensitive vaults.
+4. **Encrypt if needed** - Use git-crypt, Cryptomator, or encrypted drives.
 
-5. **Understand AI implications** - When using AI assistants, your notes may be sent to external servers. Check your provider's data policy.
+5. **Understand AI implications** - Notes may be sent to external servers.
 
 6. **Backup with 3-2-1** - 3 copies, 2 media types, 1 offsite.
 
@@ -237,8 +302,6 @@ MeKB works with any text editor. Enhanced experience with:
 | **Obsidian**    | Graph view, backlinks, templates, plugins |
 | **Claude Code** | AI assistance, automation, skills         |
 | **VS Code**     | Foam extension, Markdown All-in-One       |
-| **Typora**      | Clean writing experience                  |
-| **Logseq**      | Outline-based alternative                 |
 | **Any editor**  | Just works - it's plain text              |
 
 ## Directory Structure
@@ -246,78 +309,53 @@ MeKB works with any text editor. Enhanced experience with:
 ```
 MeKB/
 ├── .claude/
-│   └── skills/        # Claude Code skills
+│   └── skills/        # Claude Code skills (24 skills)
+├── .mekb/             # MeKB configuration
 ├── .obsidian/         # Obsidian config (optional)
 ├── Daily/
 │   └── YYYY/          # Daily notes by year
-├── Templates/         # Note templates
+├── Templates/         # Note templates (11 types)
 ├── Archive/           # Completed/old content
+├── scripts/           # Utility scripts
 ├── CLAUDE.md          # This file
 ├── README.md          # Getting started
+├── SECURITY.md        # Security documentation
 └── *.md               # Your notes (root)
 ```
 
-## Creating Notes
+## Environment Variables
 
-### With Claude Code
+For integrations, set these environment variables:
 
+```bash
+# Voice transcription
+export OPENAI_API_KEY="your-key"
+
+# Readwise sync
+export READWISE_TOKEN="your-token"
+
+# Calendar (Google)
+export GOOGLE_CALENDAR_CREDENTIALS="path/to/credentials.json"
 ```
-/daily                    # Today's note
-/note My brilliant idea   # Knowledge note
-/task Buy groceries       # Task
-/meeting Team standup     # Meeting note
-```
-
-### Manually
-
-1. Copy template from `Templates/`
-2. Rename: `[Type] - [Title].md`
-3. Fill in frontmatter
-4. Write content
-5. Add `[[links]]` to related notes
-
-## Finding Notes
-
-### With Claude Code
-
-```
-/q kafka                  # Full-text search
-/recent                   # Recently modified
-/related authentication   # Notes about a topic
-```
-
-### Manually
-
-- **Obsidian**: Ctrl/Cmd+O to quick-open, Ctrl/Cmd+Shift+F to search
-- **VS Code**: Ctrl/Cmd+P to open, Ctrl/Cmd+Shift+F to search
-- **Terminal**: `grep -r "search term" *.md`
 
 ## Migrating
 
 ### From Notion
-
 1. Export workspace as Markdown
 2. Move `.md` files to MeKB root
 3. Add frontmatter to each file
 4. Convert Notion links to `[[wiki-links]]`
 
 ### From Roam
-
 1. Export as Markdown
 2. Move files to MeKB root
 3. Add frontmatter (Roam uses `[[links]]` already)
 
-### From Apple Notes
-
-1. Export notes (File > Export)
-2. Add frontmatter
-3. Convert formatting to Markdown
-
 ### To Anywhere
-
 Your notes are already portable markdown. Just copy the folder.
 
 ---
 
-**Version:** 1.0
-**Lines:** ~280 (target: <500)
+**Version:** 2.0
+**Skills:** 24
+**Note Types:** 11
