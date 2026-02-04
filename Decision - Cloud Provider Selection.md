@@ -52,3 +52,10 @@ We needed to select a cloud provider for the new platform build. Key requirement
 ## Review Notes
 
 _Check back in 6 months to evaluate if this was the right call._
+
+## Related
+
+- [[Note - API Design Principles]] - API Gateway runs on AWS Lambda
+- [[Concept - Event Sourcing]] - Could use AWS EventBridge/Kinesis
+- [[Person - Sarah Chen]] - Has AWS/Kubernetes expertise
+- [[Meeting - 2026-01-10 Sprint Planning]] - Platform work discussed

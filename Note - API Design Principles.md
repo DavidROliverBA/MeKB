@@ -24,4 +24,7 @@ Core principles I've learned about designing good APIs.
 
 ## Related
 
-- [[Note - Welcome to MeKB]]
+- [[Decision - Cloud Provider Selection]] - APIs hosted on AWS API Gateway
+- [[Meeting - 2026-01-10 Sprint Planning]] - API gateway work planned
+- [[Resource - Designing Data-Intensive Applications]] - API design patterns
+- [[Person - Sarah Chen]] - Discussed API patterns over coffee
