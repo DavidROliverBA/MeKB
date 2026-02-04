@@ -1,0 +1,36 @@
+# MeKB .gitignore
+
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Sensitive files - NEVER commit these
+*.secret.md
+*-secret.md
+.env
+.env.*
+secrets/
+credentials/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Node (if using any scripts)
+node_modules/
+
+# Python (if using any scripts)
+__pycache__/
+*.pyc
+.venv/
+venv/
