@@ -1,0 +1,48 @@
+{
+  "ai_access_control": {
+    "enabled": true,
+    "mode": "interactive",
+    "levels": {
+      "public": "allow",
+      "personal": "allow",
+      "confidential": "ask",
+      "secret": "block"
+    },
+    "write_protection": true,
+    "remember_session": true,
+    "log_access_attempts": true
+  },
+  "trusted_ai_providers": {
+    "enabled": true,
+    "providers": ["bedrock", "local"],
+    "trust_level": {
+      "bedrock": "confidential",
+      "local": "secret",
+      "api": "personal",
+      "consumer": "personal"
+    }
+  },
+  "folder_inheritance": {
+    "enabled": true,
+    "folders": {
+      "confidential/": "confidential",
+      "secret/": "secret",
+      "private/": "confidential"
+    }
+  },
+  "secret_detection": {
+    "enabled": true,
+    "block_commit": true,
+    "patterns": [
+      "api[_-]?key",
+      "secret[_-]?key",
+      "password",
+      "passwd",
+      "bearer",
+      "token",
+      "private[_-]?key",
+      "ssh-rsa",
+      "BEGIN.*PRIVATE KEY"
+    ]
+  }
+}

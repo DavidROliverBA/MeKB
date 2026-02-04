@@ -11,5 +11,13 @@
       "Glob",
       "Grep"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|MultiEdit|Grep|Glob",
+        "command": "python3 .claude/hooks/classification-guard.py"
+      }
+    ]
   }
 }

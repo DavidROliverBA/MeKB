@@ -21,6 +21,16 @@ Thumbs.db
 secrets/
 credentials/
 
+# Classified folders (secret is never committed)
+secret/
+
+# Security logs
+.mekb/access-log.jsonl
+.mekb/*_state_*.json
+
+# Secrets baseline (allowlist)
+.secrets.baseline
+
 # Temporary files
 *.tmp
 *.temp

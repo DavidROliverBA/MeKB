@@ -176,20 +176,109 @@ via: "meeting"
 
 ## Security & Privacy
 
+MeKB includes built-in security features to protect sensitive information.
+
+### Quick Setup
+
+```bash
+./scripts/setup-security.sh
+```
+
+This enables:
+- Secret detection (pre-commit hook)
+- AI access control
+- Classified folders
+
 ### Classification Levels
 
-Add to any note:
+Add to any note's frontmatter:
 
 ```yaml
 classification: confidential
 ```
 
-| Level          | Use For                   | Sharing        |
-| -------------- | ------------------------- | -------------- |
-| `public`       | Blog-ready content        | Anyone         |
-| `personal`     | Private but not sensitive | Close contacts |
-| `confidential` | Sensitive work/personal   | Need-to-know   |
-| `secret`       | Highly sensitive          | Never; encrypt |
+| Level | AI Access | Use For |
+|-------|-----------|---------|
+| `public` | ✅ Allowed | Blog drafts, public notes |
+| `personal` | ✅ Allowed | Private but not sensitive (default) |
+| `confidential` | ⚠️ Prompts | Work secrets, client info |
+| `secret` | 🚫 Blocked | Passwords, keys, highly sensitive |
+
+### AI Access Control
+
+MeKB protects classified files from AI assistants:
+
+**Interactive Mode** (default):
+- `public`/`personal`: AI can access freely
+- `confidential`: AI asks permission before accessing
+- `secret`: AI access always blocked
+
+**Strict Mode**:
+- `confidential` and `secret` files are always blocked
+
+Configure in `.mekb/security.json`:
+```json
+{
+  "ai_access_control": {
+    "mode": "interactive",
+    "levels": {
+      "confidential": "ask",
+      "secret": "block"
+    }
+  }
+}
+```
+
+### Trusted AI Providers
+
+Different trust levels for different AI setups:
+
+| Provider | Trust Level | Notes |
+|----------|-------------|-------|
+| **Bedrock** | Up to confidential | Zero data retention |
+| **Local** | Up to secret | Data never leaves machine |
+| **API** | Up to personal | 30-day retention |
+| **Consumer** | Up to personal | May train on data |
+
+### Folder Inheritance
+
+Files in classified folders auto-inherit classification:
+
+```
+confidential/   → classification: confidential
+secret/         → classification: secret
+private/        → classification: confidential
+```
+
+The `secret/` folder is gitignored - never committed.
+
+### Secret Detection
+
+Pre-commit hook blocks commits containing:
+- API keys (AWS, GitHub, OpenAI, etc.)
+- Passwords and tokens
+- Private keys
+- Connection strings
+
+```bash
+# Install hook
+pre-commit install
+
+# Test detection
+python scripts/detect-secrets.py --directory .
+```
+
+### /classify Skill
+
+Manage classifications with Claude Code:
+
+```
+/classify              # Summary of all classifications
+/classify check        # Find files needing classification
+/classify list secret  # List all secret files
+/classify audit        # Full security audit
+/classify set FILE confidential
+```
 
 ### Never Store
 
@@ -204,18 +293,9 @@ Use a password manager instead.
 
 For sensitive vaults:
 
-- **git-crypt** - Encrypt files in Git
+- **git-crypt** - Encrypt specific files in Git
 - **Cryptomator** - Encrypted vault container
 - **Encrypted drive** - BitLocker, FileVault, LUKS
-
-### AI Assistants
-
-When using Claude Code or similar:
-
-- Your notes may be sent to external servers
-- Check your provider's data privacy policy
-- Consider using local AI for sensitive content
-- Use `classification: secret` for notes that shouldn't be shared
 
 ### Backup: 3-2-1 Rule
 
@@ -282,12 +362,18 @@ Just copy the folder. It's portable markdown.
 ```
 MeKB/
 ├── .claude/
-│   └── skills/        # Claude Code skills
+│   ├── skills/        # Claude Code skills
+│   └── hooks/         # Security hooks
+├── .mekb/
+│   └── security.json  # Security configuration
 ├── .obsidian/         # Obsidian config
 ├── Daily/
 │   └── 2026/          # Daily notes by year
 ├── Templates/         # Note templates
 ├── Archive/           # Old/completed content
+├── confidential/      # Auto-classified as confidential
+├── secret/            # Auto-classified as secret (gitignored)
+├── scripts/           # Utility scripts
 ├── CLAUDE.md          # AI assistant instructions
 ├── README.md          # This file
 └── *.md               # Your notes
