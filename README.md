@@ -2,7 +2,7 @@
 
 **Me Knowledge Base** - A personal knowledge system for everyone.
 
-Capture, connect, and compound your knowledge using plain markdown files. No special tools required.
+Capture, connect, and compound your knowledge using plain Markdown files. No special tools required.
 
 ## Philosophy
 
