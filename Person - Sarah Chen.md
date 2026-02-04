@@ -14,9 +14,11 @@ met_date: 2025-12-01
 met_context: Architecture guild meeting
 
 expertise: [distributed-systems, kubernetes, golang]
-last_contact: 2026-01-15
+last_contact: 2026-02-04
 contact_frequency: monthly
 relationship_strength: medium
+next_followup: 2026-02-11
+followup_context: "Follow up from catch-up meeting"
 ---
 
 # Sarah Chen
@@ -46,5 +48,6 @@ Met at the Architecture Guild meeting in December. She gave a great talk on serv
 
 | Date | Type | Summary |
 |------|------|---------|
+| 2026-02-04 | Meeting | Caught up |
 | 2026-01-15 | Coffee | Discussed microservices challenges |
 | 2025-12-01 | Meeting | Met at Architecture Guild |
