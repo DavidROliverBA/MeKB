@@ -40,9 +40,16 @@ Met at the Architecture Guild meeting in December. She gave a great talk on serv
 
 ## Notes
 
-- Recommended the "Designing Data-Intensive Applications" book
+- Recommended [[Resource - Designing Data-Intensive Applications]] - excellent systems book
 - Interested in collaborating on the API gateway project
 - Prefers async communication (Slack over meetings)
+- Expertise relevant to [[Concept - Event Sourcing]] and distributed systems
+
+## Related
+
+- [[Interaction - 2026-02-04 Sarah Chen]] - Most recent catch-up
+- [[Meeting - 2026-01-10 Sprint Planning]] - Attended sprint planning
+- [[Decision - Cloud Provider Selection]] - Provided AWS/K8s expertise
 
 ## Interaction Log
 

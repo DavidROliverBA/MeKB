@@ -15,12 +15,14 @@ Testing, testing, 1,2,3.
 
 ## Key Points
 
-_Review and add key points from the transcript_
+- First voice note test in MeKB
+- Demonstrates `/voice` skill with macOS dictation
 
 ## Action Items
 
-- [ ] _Extract any action items_
+- [x] Test voice capture workflow
 
 ## Related
 
-_Add links to related notes_
+- [[Daily/2026/2026-02-04]] - Created during vault setup
+- [[Note - Welcome to MeKB]] - Part of onboarding testing
