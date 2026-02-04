@@ -16,20 +16,16 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 
 ## Quick Start
 
-```bash
-# No installation required - just start writing!
-# 1. Copy a template from Templates/
-# 2. Fill it in
-# 3. Link to other notes with [[brackets]]
-```
-
-With Claude Code:
+**New to MeKB?** Run `/start` for guided onboarding that creates personalised first notes.
 
 ```
+/start              # Guided setup for new users
 /daily              # Create today's note
 /note My Idea       # Capture a thought
 /q search term      # Find anything
 ```
+
+**Without Claude Code?** Open `Note - Welcome to MeKB.md` and follow the checklist.
 
 ## Note Types
 
@@ -52,20 +48,44 @@ With Claude Code:
 
 ## Skills Reference
 
+### Getting Started
+
+| Skill    | Purpose                                        |
+| -------- | ---------------------------------------------- |
+| `/start` | Guided onboarding - creates personalised notes |
+
+### Daily Workflow
+
 | Skill              | Purpose                   |
 | ------------------ | ------------------------- |
 | `/daily`           | Create today's daily note |
 | `/meeting <title>` | Create meeting note       |
 | `/task <title>`    | Quick-create task         |
+
+### Capture
+
+| Skill              | Purpose                   |
+| ------------------ | ------------------------- |
 | `/note <title>`    | Create knowledge note     |
+| `/concept <title>` | Create concept definition |
 | `/person <name>`   | Create person note        |
 | `/weblink <url>`   | Save URL with summary     |
-| `/concept <title>` | Create concept definition |
-| `/q <search>`      | Search all notes          |
-| `/recent`          | Show recently modified    |
-| `/related <topic>` | Find connected notes      |
-| `/health`          | Vault health check        |
-| `/orphans`         | Find unlinked notes       |
+
+### Find
+
+| Skill              | Purpose                |
+| ------------------ | ---------------------- |
+| `/q <search>`      | Search all notes       |
+| `/recent`          | Show recently modified |
+| `/related <topic>` | Find connected notes   |
+
+### Maintenance
+
+| Skill       | Purpose                         |
+| ----------- | ------------------------------- |
+| `/health`   | Vault health check              |
+| `/orphans`  | Find unlinked notes             |
+| `/classify` | Manage security classifications |
 
 ## Frontmatter Schema
 
