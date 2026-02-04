@@ -43,5 +43,7 @@ Recommended by [[Person - Sarah Chen]].
 
 ## Related
 
-- [[Concept - Event Sourcing]]
-- [[Decision - Cloud Provider Selection]]
+- [[Concept - Event Sourcing]] - Chapter 11 covers this pattern
+- [[Decision - Cloud Provider Selection]] - Informed our platform choices
+- [[Note - API Design Principles]] - System design patterns apply here
+- [[Meeting - 2026-01-10 Sprint Planning]] - Platform architecture discussed

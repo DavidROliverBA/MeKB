@@ -49,3 +49,9 @@ attendees:
 
 - Will use Stripe for payments (simpler than building in-house)
 - Sprint demo moved to Fridays
+
+## Related
+
+- [[Note - API Design Principles]] - API gateway work
+- [[Decision - Cloud Provider Selection]] - Platform runs on AWS
+- [[Resource - Designing Data-Intensive Applications]] - Architecture reference
