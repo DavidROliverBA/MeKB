@@ -89,9 +89,11 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | ------------------ | -------------------------------- |
 | `/q <search>`      | Keyword search all notes         |
 | `/search <query>`  | Semantic search by meaning       |
+| `/ask <question>`  | AI-powered vault Q&A             |
 | `/recent`          | Show recently modified           |
 | `/related <topic>` | Find connected notes             |
 | `/suggest`         | AI-powered link suggestions      |
+| `/graph`           | Explore knowledge connections    |
 
 ### Review & Reflect
 
@@ -116,6 +118,13 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | ----------- | ------------------------------- |
 | `/calendar` | Sync calendar, create meeting notes |
 | `/readwise` | Sync highlights from Readwise   |
+
+### Productivity
+
+| Skill       | Purpose                         |
+| ----------- | ------------------------------- |
+| `/habits`   | Track daily habits              |
+| `/export`   | Export notes in shareable formats |
 
 ### Maintenance
 
@@ -356,6 +365,6 @@ Your notes are already portable markdown. Just copy the folder.
 
 ---
 
-**Version:** 2.0
-**Skills:** 24
+**Version:** 2.1
+**Skills:** 28
 **Note Types:** 11

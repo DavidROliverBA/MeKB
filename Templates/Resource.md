@@ -1,9 +1,11 @@
 ---
 type: Resource
-title: { { title } }
-url: { { url } }
-created: { { date } }
+title: {{title}}
+url: {{url}}
+created: {{date}}
 tags: []
+read_status: unread
+verified: {{date}}
 ---
 
 # {{title}}

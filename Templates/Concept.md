@@ -1,8 +1,9 @@
 ---
 type: Concept
-title: { { title } }
-created: { { date } }
+title: {{title}}
+created: {{date}}
 tags: []
+verified: {{date}}
 ---
 
 # {{title}}

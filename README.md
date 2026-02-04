@@ -30,15 +30,16 @@ cd my-knowledge-base
 ```
 MeKB/
 ├── Daily/           # Daily journal notes
-├── Templates/       # Note templates (copy to create)
+├── Templates/       # 11 note templates
 ├── Archive/         # Completed/old content
+├── .claude/skills/  # 24 AI-powered skills
 ├── CLAUDE.md        # AI assistant instructions
 └── *.md             # Your notes (root directory)
 ```
 
-**8 Note Types:** Daily, Note, Concept, Task, Project, Meeting, Person, Resource
+**11 Note Types:** Daily, Note, Concept, Task, Project, Meeting, Person, Resource, Decision, ActionItem, Interaction
 
-**13 Skills:** `/daily`, `/meeting`, `/task`, `/note`, `/person`, `/weblink`, `/concept`, `/q`, `/recent`, `/related`, `/health`, `/orphans`, `/classify`
+**28 Skills:** Capture, discover, review, and maintain your knowledge
 
 ## Tool Compatibility
 
@@ -50,6 +51,90 @@ Works with any text editor. Enhanced experience with:
 | **Claude Code** | AI assistance, automation, skills         |
 | **VS Code**     | Foam extension, wiki-links                |
 | **Any editor**  | Just works - it's plain text              |
+
+## Note Types
+
+### Core Types (Personal)
+
+| Type         | Purpose                      | Example                          |
+| ------------ | ---------------------------- | -------------------------------- |
+| **Daily**    | Daily journal and capture    | `Daily/2026/2026-02-04.md`       |
+| **Note**     | General knowledge            | `Note - How to learn.md`         |
+| **Concept**  | Definitions ("What is X?")   | `Concept - Event Sourcing.md`    |
+| **Task**     | Things to do                 | `Task - Review docs.md`          |
+| **Project**  | Multi-task initiatives       | `Project - Website Redesign.md`  |
+| **Meeting**  | Meeting notes                | `Meeting - 2026-02-04 Sprint.md` |
+| **Person**   | People (CRM features)        | `Person - Jane Smith.md`         |
+| **Resource** | Links, books, videos         | `Resource - DDIA Book.md`        |
+
+### Professional Types
+
+| Type            | Purpose                       | Example                              |
+| --------------- | ----------------------------- | ------------------------------------ |
+| **Decision**    | Track decisions with context  | `Decision - API Strategy.md`         |
+| **ActionItem**  | Meeting actions with owners   | `ActionItem - Send proposal.md`      |
+| **Interaction** | Log conversations/meetings    | `Interaction - 2026-02-04 Jane.md`   |
+
+## Skills (Claude Code)
+
+### Capture
+
+| Skill              | Purpose                      |
+| ------------------ | ---------------------------- |
+| `/daily`           | Create today's daily note    |
+| `/note <title>`    | Create knowledge note        |
+| `/concept <title>` | Create concept definition    |
+| `/meeting <title>` | Create meeting note          |
+| `/task <title>`    | Quick-create task            |
+| `/person <name>`   | Create person note           |
+| `/weblink <url>`   | Save URL with summary        |
+| `/clip <url>`      | Web clipper (YouTube, etc.)  |
+| `/voice`           | Voice note transcription     |
+
+### Discover
+
+| Skill              | Purpose                      |
+| ------------------ | ---------------------------- |
+| `/q <term>`        | Keyword search               |
+| `/search <query>`  | Semantic search by meaning   |
+| `/ask <question>`  | AI-powered vault Q&A         |
+| `/recent`          | Recently modified notes      |
+| `/related <topic>` | Find connected notes         |
+| `/suggest`         | AI-powered link suggestions  |
+| `/graph`           | Explore note connections     |
+
+### Review & Reflect
+
+| Skill     | Purpose                              |
+| --------- | ------------------------------------ |
+| `/review` | Spaced repetition - resurface notes  |
+| `/weekly` | Generate weekly summary              |
+| `/stale`  | Find notes needing verification      |
+
+### Relationships (CRM)
+
+| Skill               | Purpose                     |
+| ------------------- | --------------------------- |
+| `/people`           | Network dashboard           |
+| `/people reconnect` | Who to reach out to         |
+| `/people met <name>`| Log an interaction          |
+| `/people search`    | Find by expertise           |
+
+### Productivity
+
+| Skill       | Purpose                     |
+| ----------- | --------------------------- |
+| `/habits`   | Track daily habits          |
+| `/export`   | Export for sharing          |
+
+### Maintenance
+
+| Skill       | Purpose                     |
+| ----------- | --------------------------- |
+| `/health`   | Vault health check          |
+| `/orphans`  | Find unlinked notes         |
+| `/classify` | Manage security levels      |
+| `/start`    | Guided onboarding           |
 
 ## The Basics
 
@@ -74,6 +159,38 @@ Met with [[Person - Jane Smith]] about [[Project - Website]].
 - **Obsidian:** Ctrl/Cmd+O (quick open) or Ctrl/Cmd+Shift+F (search)
 - **Claude Code:** `/q search term`
 - **Terminal:** `grep -r "search term" *.md`
+
+## Key Features
+
+### Knowledge Compounding
+
+MeKB helps your knowledge grow over time:
+
+- **Spaced repetition** (`/review`) - Resurface old notes for reflection
+- **Weekly summaries** (`/weekly`) - See what you captured and themes that emerged
+- **Link suggestions** (`/suggest`) - AI finds connections you missed
+- **Freshness tracking** - Know when notes need updating
+
+### Relationship Management (CRM)
+
+Track your professional network:
+
+- **Contact frequency** - Set how often to reach out
+- **Follow-up reminders** - Never forget to reconnect
+- **Expertise tagging** - Find the right person for help
+- **Interaction logging** - Record meetings, calls, emails
+
+### Quality Tracking
+
+Optional fields to track knowledge health:
+
+```yaml
+verified: 2026-02-04    # Last reviewed
+freshness: current      # current | recent | stale
+confidence: high        # high | medium | low
+```
+
+Run `/stale` to find notes needing attention.
 
 ## Security
 

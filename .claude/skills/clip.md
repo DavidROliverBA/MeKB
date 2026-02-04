@@ -18,7 +18,16 @@ Save web content as a Resource note with metadata and summary.
 
 ### Step 1: Fetch Page Metadata
 
-Extract from the URL:
+**For YouTube URLs:**
+Use the YouTube MCP tool `mcp__MCP_DOCKER__get_video_info` to extract:
+- Video title
+- Channel name (author)
+- Description
+- Duration
+- Upload date
+
+**For other URLs:**
+Use WebFetch to extract:
 - Title (from `<title>` or `og:title`)
 - Description (from meta description or `og:description`)
 - Author (if available)
@@ -138,9 +147,34 @@ Track unread clips with:
 /clips search X   # Search clips
 ```
 
+### YouTube Example
+
+```
+User: /clip https://www.youtube.com/watch?v=abc123
+
+Claude: Clipped YouTube video:
+
+**Resource - How to Take Smart Notes.md**
+
+- **Channel:** Vicky Zhao [BEEAMP]
+- **Duration:** 15 minutes
+- **Published:** 2026-01-15
+
+Summary: A guide to building a note-taking system for better
+knowledge management and AI-assisted thinking.
+
+Key points:
+- Context engineering beats prompt engineering
+- 6 categories of notes for effective AI use
+- Notes capture tacit knowledge
+
+Tags: [video, topic/note-taking, topic/ai, web-clip]
+```
+
 ### Tips
 
 - Clip generously, curate later
 - Add your own notes while the content is fresh
 - Link clips to projects and concepts
 - Review unread clips weekly
+- YouTube videos get duration and timestamps automatically
