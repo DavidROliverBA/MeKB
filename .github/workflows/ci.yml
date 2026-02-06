@@ -15,6 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Run secret detection
         run: python3 scripts/detect-secrets.py --directory .
       - name: Validate security config
@@ -30,6 +31,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Build search index
         run: python3 scripts/build-index.py --stats
       - name: Run search tests
@@ -43,6 +45,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Build knowledge graph
         run: python3 scripts/build-graph.py --stats
       - name: Run graph tests
@@ -56,6 +59,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Validate skill format
         run: python3 -m pytest scripts/tests/test_skills.py -v
       - name: Count skills
@@ -71,6 +75,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Run site generator tests
         run: python3 -m pytest scripts/tests/test_site.py -v
 
@@ -82,6 +87,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Run webhook tests
         run: python3 -m pytest scripts/tests/test_webhook.py -v
 
@@ -93,6 +99,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - run: pip install pytest
       - name: Run utility tests
         run: >
           python3 -m pytest
