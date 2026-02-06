@@ -1,0 +1,105 @@
+name: MeKB CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    name: Security Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run secret detection
+        run: python3 scripts/detect-secrets.py --directory .
+      - name: Validate security config
+        run: python3 -c "import json; json.load(open('.mekb/security.json'))"
+      - name: Run security tests
+        run: python3 -m pytest scripts/tests/test_security.py -v
+
+  search-index:
+    name: Search Index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build search index
+        run: python3 scripts/build-index.py --stats
+      - name: Run search tests
+        run: python3 -m pytest scripts/tests/test_search.py -v
+
+  graph:
+    name: Knowledge Graph
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build knowledge graph
+        run: python3 scripts/build-graph.py --stats
+      - name: Run graph tests
+        run: python3 -m pytest scripts/tests/test_graph.py -v
+
+  skills:
+    name: Skill Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate skill format
+        run: python3 -m pytest scripts/tests/test_skills.py -v
+      - name: Count skills
+        run: |
+          count=$(ls -1 .claude/skills/*.md | wc -l)
+          echo "Found $count skills"
+
+  site:
+    name: Site Generator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run site generator tests
+        run: python3 -m pytest scripts/tests/test_site.py -v
+
+  webhook:
+    name: Webhook Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run webhook tests
+        run: python3 -m pytest scripts/tests/test_webhook.py -v
+
+  utilities:
+    name: Utility Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run utility tests
+        run: >
+          python3 -m pytest
+          scripts/tests/test_browse.py
+          scripts/tests/test_notify.py
+          scripts/tests/test_stale.py
+          scripts/tests/test_schedule.py
+          scripts/tests/test_embeddings.py
+          scripts/tests/test_skill_tools.py
+          -v
