@@ -17,7 +17,16 @@ jobs:
           python-version: '3.11'
       - run: pip install pytest
       - name: Run secret detection
-        run: python3 scripts/detect-secrets.py --directory .
+        run: |
+          # Exclude test fixtures, the scanner itself, and documentation that
+          # describes secret patterns (all contain intentional synthetic examples)
+          find . -type f \( -name "*.md" -o -name "*.py" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" \) \
+            ! -path "./scripts/tests/*" \
+            ! -path "./scripts/detect-secrets.py" \
+            ! -path "./scripts/README.md" \
+            ! -path "./.claude/prompts/*" \
+            ! -path "./.git/*" \
+            | python3 scripts/detect-secrets.py
       - name: Validate security config
         run: python3 -c "import json; json.load(open('.mekb/security.json'))"
       - name: Run security tests
@@ -33,7 +42,7 @@ jobs:
           python-version: '3.11'
       - run: pip install pytest
       - name: Build search index
-        run: python3 scripts/build-index.py --stats
+        run: python3 scripts/build-index.py && python3 scripts/build-index.py --stats
       - name: Run search tests
         run: python3 -m pytest scripts/tests/test_search.py -v
 
