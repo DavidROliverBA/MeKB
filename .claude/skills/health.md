@@ -14,7 +14,13 @@ Quick vault health check.
 2. Find notes missing required frontmatter (`type`, `title`)
 3. Count orphan notes (no incoming or outgoing links)
 4. Check for broken links (links to non-existent notes)
-5. Display summary:
+5. Check integration status:
+   - Search index: `python3 scripts/build-index.py --stats`
+   - Knowledge graph: `python3 scripts/build-graph.py --stats`
+   - Embeddings: check if `.mekb/embeddings.json` exists
+   - Notifications: `python3 scripts/notify.py --list`
+   - Scheduled jobs: `python3 scripts/schedule.py status`
+6. Display summary:
 
 ## Example Output
 
@@ -40,4 +46,11 @@ Issues:
 - 2 broken links
 
 Run /orphans to see unlinked notes.
+
+Integrations:
+- Search index: 103 notes indexed (0.03s rebuild)
+- Knowledge graph: 87 nodes, 142 edges
+- Embeddings: not built (optional)
+- Notifications: desktop (available), slack (not configured)
+- Scheduled jobs: 2 active, 2 inactive
 ```

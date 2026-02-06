@@ -71,6 +71,17 @@ freshness: current        # current | recent | stale
 confidence: high          # high | medium | low
 ```
 
+## Standalone Script
+
+For automated or CLI usage:
+
+```bash
+python3 scripts/stale-check.py              # Full report
+python3 scripts/stale-check.py --summary     # Summary counts only
+python3 scripts/stale-check.py --json        # JSON output
+python3 scripts/stale-check.py --type Concept # Filter by type
+```
+
 ## Tips
 
 - Run `/stale` monthly as part of maintenance

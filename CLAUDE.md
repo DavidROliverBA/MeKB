@@ -27,6 +27,25 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 
 **Without Claude Code?** Open `Note - Welcome to MeKB.md` and follow the checklist.
 
+### Search Index
+
+Build the SQLite FTS5 search index for fast, ranked full-text search:
+
+```bash
+python3 scripts/build-index.py        # Build/update index (~0.03s)
+python3 scripts/build-index.py --stats # Show index statistics
+python3 scripts/search.py "query"      # Search from command line
+```
+
+**Optional:** For semantic (meaning-based) search, install `sentence-transformers` and build vector embeddings:
+
+```bash
+pip install sentence-transformers
+python3 scripts/build-embeddings.py    # Build vector index
+```
+
+When both indexes exist, search automatically uses hybrid fusion (70% BM25 + 30% vector).
+
 ## Note Types
 
 ### Core Types
@@ -94,6 +113,7 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | `/related <topic>` | Find connected notes             |
 | `/suggest`         | AI-powered link suggestions      |
 | `/graph`           | Explore knowledge connections    |
+| `/connections`     | Typed relationship exploration   |
 
 ### Review & Reflect
 
@@ -118,6 +138,8 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | ----------- | ------------------------------- |
 | `/calendar` | Sync calendar, create meeting notes |
 | `/readwise` | Sync highlights from Readwise   |
+| `/browse`   | Fetch web content, screenshots  |
+| `/notify`   | Send desktop/Slack/Discord/email notifications |
 
 ### Productivity
 
@@ -126,10 +148,19 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 | `/habits`   | Track daily habits              |
 | `/export`   | Export notes in shareable formats |
 
-### Maintenance
+### Publishing
 
 | Skill       | Purpose                         |
 | ----------- | ------------------------------- |
+| `/site`     | Build static HTML site from notes |
+
+### Session & Maintenance
+
+| Skill       | Purpose                         |
+| ----------- | ------------------------------- |
+| `/session`  | View/save current session state |
+| `/schedule` | Manage scheduled jobs           |
+| `/automate` | Custom recurring tasks          |
 | `/health`   | Vault health check              |
 | `/orphans`  | Find unlinked notes             |
 | `/classify` | Manage security classifications |
@@ -152,6 +183,19 @@ verified: YYYY-MM-DD    # Last time content was checked
 freshness: current      # current | recent | stale
 confidence: high        # high | medium | low
 ```
+
+### Relationships (optional)
+
+Typed relationships for knowledge graph edges:
+
+```yaml
+relationships:
+  depends-on: ["[[Decision - Cloud Provider Selection]]"]
+  references: ["[[Concept - Event Sourcing]]"]
+  supersedes: []
+```
+
+**Available types:** `references`, `depends-on`, `supersedes`, `contradicts`, `supports`, `implements`, `extends`, `inspired-by`
 
 ### Classification (security)
 
@@ -318,7 +362,7 @@ MeKB works with any text editor. Enhanced experience with:
 ```
 MeKB/
 ├── .claude/
-│   └── skills/        # Claude Code skills (24 skills)
+│   └── skills/        # Claude Code skills (36 skills)
 ├── .mekb/             # MeKB configuration
 ├── .obsidian/         # Obsidian config (optional)
 ├── Daily/
@@ -331,6 +375,16 @@ MeKB/
 ├── SECURITY.md        # Security documentation
 └── *.md               # Your notes (root)
 ```
+
+## Webhook Server
+
+Receive webhooks to create notes, trigger rebuilds, and check health:
+
+```bash
+python3 scripts/webhook-server.py --token my-secret  # Start with auth
+```
+
+Endpoints: `POST /api/note`, `POST /api/rebuild-index`, `POST /api/rebuild-graph`, `POST /api/health`, `GET /api/status`. Listens on `127.0.0.1:9876` by default.
 
 ## Environment Variables
 
@@ -345,6 +399,9 @@ export READWISE_TOKEN="your-token"
 
 # Calendar (Google)
 export GOOGLE_CALENDAR_CREDENTIALS="path/to/credentials.json"
+
+# Webhook server auth
+export MEKB_WEBHOOK_TOKEN="your-token"
 ```
 
 ## Migrating
@@ -365,6 +422,6 @@ Your notes are already portable markdown. Just copy the folder.
 
 ---
 
-**Version:** 2.1
-**Skills:** 28
+**Version:** 2.5
+**Skills:** 36
 **Note Types:** 11

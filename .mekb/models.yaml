@@ -1,0 +1,37 @@
+# MeKB Model Preferences
+# Informational only - Claude Code handles model selection.
+# This documents recommended models for different task types.
+
+default: sonnet
+
+preferences:
+  # Quick capture - fast, low cost, simple templates
+  quick-capture:
+    model: haiku
+    tasks: [daily, meeting, task, person, note]
+    rationale: "Speed over depth for simple template filling"
+
+  # Research and exploration - parallel, isolated context
+  research:
+    model: haiku
+    tasks: [q, search, related, orphans, graph]
+    rationale: "Parallel subagents for read-only exploration"
+
+  # Analysis and synthesis - balanced quality
+  analysis:
+    model: sonnet
+    tasks: [ask, suggest, weekly, review, stale, connections]
+    rationale: "Good reasoning at moderate cost"
+
+  # Deep work - complex reasoning
+  deep-work:
+    model: opus
+    tasks: [decisions, complex-analysis, vault-maintenance]
+    rationale: "Maximum reasoning quality for important decisions"
+
+# Trust levels aligned with security.json
+trust:
+  haiku: personal     # Can access public + personal
+  sonnet: personal    # Can access public + personal
+  opus: confidential  # Can access up to confidential (with ask)
+  local: secret       # Local models can access everything

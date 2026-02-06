@@ -22,7 +22,23 @@ Explore and understand your knowledge graph connections.
 
 ### Step 1: Build Connection Map
 
-Scan all notes for:
+**Preferred: Use pre-built graph index**
+
+If `.mekb/graph.json` exists, use it for instant lookups:
+
+```bash
+python3 scripts/build-graph.py --stats     # Graph overview
+python3 scripts/build-graph.py --hubs      # Most connected notes
+python3 scripts/build-graph.py --orphans   # Unlinked notes
+python3 scripts/build-graph.py --traverse "Note.md" --depth 2  # BFS traversal
+```
+
+**Rebuild the graph** if results seem stale:
+```bash
+python3 scripts/build-graph.py
+```
+
+**Fallback:** If no graph index exists, scan all notes for:
 - Outgoing links: `[[wiki-links]]` in the note
 - Incoming links: Other notes that link to this one (backlinks)
 - Tags: Shared tags between notes

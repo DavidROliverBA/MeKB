@@ -50,10 +50,12 @@ Use Claude to:
 
 Pre-compute embeddings:
 ```bash
-node scripts/build-embeddings.js
+python3 scripts/build-embeddings.py
 ```
 
 This creates `.mekb/embeddings.json` with vector for each note.
+
+**Prerequisites:** `pip install sentence-transformers` (optional dependency)
 
 Search flow:
 1. Embed the query
@@ -104,17 +106,32 @@ Would you like to:
 /search <query> --explain    # Detailed match reasoning
 ```
 
-### Building the Index
+### Building the Indexes
 
 ```bash
-# Build embedding index (run periodically)
-node scripts/build-embeddings.js
+# Build FTS5 search index (fast, no extra deps)
+python3 scripts/build-index.py
+
+# Build embedding index (requires sentence-transformers)
+python3 scripts/build-embeddings.py
 
 # Index stats
-node scripts/build-embeddings.js --stats
+python3 scripts/build-index.py --stats
+python3 scripts/build-embeddings.py --stats
 
-# Rebuild specific notes
-node scripts/build-embeddings.js --rebuild "Note - Topic.md"
+# Force rebuild
+python3 scripts/build-index.py --rebuild
+python3 scripts/build-embeddings.py --rebuild
+```
+
+### Hybrid Search
+
+When both indexes exist, use the search engine directly:
+```bash
+python3 scripts/search.py "query"              # Hybrid (FTS5 + vector, 70/30 fusion)
+python3 scripts/search.py "query" --fts-only    # FTS5 only
+python3 scripts/search.py "query" --vector-only  # Vector only
+python3 scripts/search.py "query" --explain      # Show scoring details
 ```
 
 ### Comparison: /q vs /search

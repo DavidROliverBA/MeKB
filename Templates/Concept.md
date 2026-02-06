@@ -4,6 +4,11 @@ title: {{title}}
 created: {{date}}
 tags: []
 verified: {{date}}
+
+# Relationships
+relationships:
+  references: []
+  extends: []
 ---
 
 # {{title}}

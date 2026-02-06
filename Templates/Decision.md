@@ -26,6 +26,12 @@ approvers: []
 date_decided: null
 review_date: null
 
+# Relationships
+relationships:
+  depends-on: []
+  supersedes: []
+  references: []
+
 # Quality
 confidence: medium
 verified: {{date}}

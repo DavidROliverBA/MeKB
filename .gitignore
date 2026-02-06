@@ -28,6 +28,32 @@ secret/
 .mekb/access-log.jsonl
 .mekb/*_state_*.json
 
+# Search indexes (rebuild with scripts/build-index.py)
+.mekb/search.db
+.mekb/search.db-wal
+.mekb/search.db-shm
+
+# Vector embeddings (rebuild with scripts/build-embeddings.py)
+.mekb/embeddings.json
+
+# Knowledge graph (rebuild with scripts/build-graph.py)
+.mekb/graph.json
+
+# Logs (from scheduled jobs)
+.mekb/logs/
+
+# Automations config
+.mekb/automations.yaml
+
+# Session memory
+.mekb/sessions/
+
+# Static site output (rebuild with scripts/build-site.py)
+_site/
+
+# Notification config (may contain webhook URLs)
+.mekb/notifications.yaml
+
 # Secrets baseline (allowlist)
 .secrets.baseline
 
