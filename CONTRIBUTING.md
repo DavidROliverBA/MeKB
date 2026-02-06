@@ -20,6 +20,8 @@ python3 scripts/build-graph.py  # Build knowledge graph
 
 ## Running Tests
 
+MeKB has 236 tests across 12 test files covering all 12 production scripts. Tests run in ~0.28s.
+
 ```bash
 # All tests (requires pytest)
 python3 -m pytest scripts/tests/ -v
@@ -32,7 +34,41 @@ python3 -m pytest scripts/tests/test_search.py -v
 python3 -m pytest scripts/tests/test_graph.py -v
 python3 -m pytest scripts/tests/test_security.py -v
 python3 -m pytest scripts/tests/test_skills.py -v
+python3 -m pytest scripts/tests/test_site.py -v
+python3 -m pytest scripts/tests/test_browse.py -v
+python3 -m pytest scripts/tests/test_notify.py -v
+python3 -m pytest scripts/tests/test_stale.py -v
+python3 -m pytest scripts/tests/test_schedule.py -v
+python3 -m pytest scripts/tests/test_embeddings.py -v
+python3 -m pytest scripts/tests/test_skill_tools.py -v
+python3 -m pytest scripts/tests/test_webhook.py -v
 ```
+
+### Test Helpers
+
+Shared test utilities live in `scripts/tests/helpers.py`:
+
+- **`VaultFixture`** — Creates a temporary vault directory with `.mekb/` config for isolated testing
+- **`create_note(title, type, ...)`** — Factory function for creating test notes with valid frontmatter
+- **`_import_script(name)`** — Imports scripts with hyphenated filenames (e.g., `build-index`)
+
+All test files use these helpers to avoid duplicating vault setup. Tests create their own temporary directories and clean up automatically.
+
+## CI Pipeline
+
+Every push and PR to `main` triggers 7 parallel GitHub Actions jobs:
+
+| Job | What it runs |
+|-----|-------------|
+| Security Checks | Secret detection scan + `test_security.py` |
+| Search Index | Index build + `test_search.py` |
+| Knowledge Graph | Graph build + `test_graph.py` |
+| Skill Validation | `test_skills.py` + skill count check |
+| Site Generator | `test_site.py` |
+| Webhook Server | `test_webhook.py` |
+| Utility Scripts | `test_browse.py`, `test_notify.py`, `test_stale.py`, `test_schedule.py`, `test_embeddings.py`, `test_skill_tools.py` |
+
+All 7 jobs must pass before a PR can be merged. See `.github/workflows/ci.yml` for the full configuration.
 
 ## Development Principles
 
@@ -43,6 +79,9 @@ MeKB's core must work with Python stdlib only. No `pip install` required for:
 - Knowledge graph (`json`)
 - Secret detection (`re`)
 - Scheduling (`subprocess`)
+- Site generation (`http.server`)
+- Notifications (`urllib.request`)
+- Web fetching (`urllib.request`)
 
 Optional dependencies are allowed but must degrade gracefully:
 - `sentence-transformers` for vector embeddings
@@ -71,6 +110,7 @@ Optional dependencies are allowed but must degrade gracefully:
 4. Add tests in `scripts/tests/test_<name>.py`
 5. Add a shebang line: `#!/usr/bin/env python3`
 6. Handle classification: skip `secret/` content
+7. Use `helpers.py` utilities in tests (`VaultFixture`, `create_note`)
 
 ## Adding a Skill
 
@@ -101,10 +141,12 @@ Optional dependencies are allowed but must degrade gracefully:
 
 ## Pull Request Checklist
 
-- [ ] Tests pass: `python3 -m pytest scripts/tests/ -v`
+- [ ] All tests pass: `python3 -m pytest scripts/tests/ -v`
+- [ ] CI pipeline passes (7 jobs)
 - [ ] No secrets: `python3 scripts/detect-secrets.py --directory .`
-- [ ] No new dependencies (or documented as optional)
+- [ ] No new dependencies (or documented as optional with graceful fallback)
 - [ ] CLAUDE.md updated if adding skills/scripts
+- [ ] TOOLS.md updated if adding scripts or skills
 - [ ] Follows existing code style (no linter configured - match what's there)
 
 ## Code Style
