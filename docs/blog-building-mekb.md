@@ -14,7 +14,7 @@ What if your notes could grow smarter over time, instead of just piling up?
 
 Most note-taking apps are glorified filing cabinets. You put things in, and if you remember exactly where you put them, you can get them out again. But knowledge isn't filing. Knowledge is about connections — the relationship between that decision you made in January and the problem you're solving in June.
 
-I wanted a system where writing a note today would make all my past notes more valuable. Where linking two ideas would create a path that I, or an AI assistant, could follow later.
+I wanted a system where writing a note today would make all my past notes more valuable. Where linking two ideas would create a path that I, or an AI assistant, could follow later, where I didn't have continue paying for yet another subscription.
 
 ## What MeKB actually is
 
