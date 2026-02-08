@@ -107,6 +107,116 @@ if [ -d "$HOME/.claude" ]; then
     echo "   ⚠️  Add to .claude/settings.json manually (see below)"
 fi
 
+# ── Encryption Setup (optional) ─────────────────────────────────
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🔑 Encryption Setup (optional)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "MeKB can encrypt notes classified as confidential or secret"
+echo "using age (actually good encryption). This is optional."
+echo ""
+
+read -p "Set up encryption? (y/N) " SETUP_ENCRYPT
+if [[ "$SETUP_ENCRYPT" =~ ^[Yy]$ ]]; then
+
+    # Check/install age
+    if ! command -v age &> /dev/null; then
+        echo ""
+        echo "📦 age is required for encryption."
+        if command -v brew &> /dev/null; then
+            read -p "Install age via Homebrew? (y/N) " INSTALL_AGE
+            if [[ "$INSTALL_AGE" =~ ^[Yy]$ ]]; then
+                brew install age
+            else
+                echo "Install manually: https://github.com/FiloSottile/age#installation"
+                echo "Skipping encryption setup."
+                SETUP_ENCRYPT="n"
+            fi
+        else
+            echo "Install age manually: https://github.com/FiloSottile/age#installation"
+            echo "Then re-run this script."
+            SETUP_ENCRYPT="n"
+        fi
+    fi
+fi
+
+if [[ "$SETUP_ENCRYPT" =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "🔑 Generating encryption keys..."
+    echo ""
+
+    mkdir -p .mekb
+
+    # Generate primary age key
+    if [ ! -f ".mekb/age-key.txt" ]; then
+        age-keygen -o .mekb/age-key.txt 2>/tmp/mekb-keygen-output.txt
+        PRIMARY_PUBKEY=$(grep "public key:" /tmp/mekb-keygen-output.txt | awk '{print $NF}')
+        rm -f /tmp/mekb-keygen-output.txt
+        echo "   ✅ Primary key generated"
+        echo "   Public key: $PRIMARY_PUBKEY"
+    else
+        PRIMARY_PUBKEY=$(grep "public key:" .mekb/age-key.txt | awk '{print $NF}')
+        echo "   ✅ Primary key already exists"
+        echo "   Public key: $PRIMARY_PUBKEY"
+    fi
+
+    # Generate backup passphrase key
+    if [ ! -f ".mekb/backup-key.txt" ]; then
+        age-keygen -o .mekb/backup-key.txt 2>/tmp/mekb-keygen-output.txt
+        BACKUP_PUBKEY=$(grep "public key:" /tmp/mekb-keygen-output.txt | awk '{print $NF}')
+        rm -f /tmp/mekb-keygen-output.txt
+        echo "   ✅ Backup key generated"
+        echo "   Public key: $BACKUP_PUBKEY"
+    else
+        BACKUP_PUBKEY=$(grep "public key:" .mekb/backup-key.txt | awk '{print $NF}')
+        echo "   ✅ Backup key already exists"
+        echo "   Public key: $BACKUP_PUBKEY"
+    fi
+
+    # Update security.json with recipient keys
+    if command -v python3 &> /dev/null; then
+        python3 -c "
+import json
+from pathlib import Path
+
+config_path = Path('.mekb/security.json')
+config = json.loads(config_path.read_text()) if config_path.exists() else {}
+
+config.setdefault('encryption', {})
+config['encryption']['enabled'] = True
+config['encryption']['tool'] = 'age'
+config['encryption']['levels_to_encrypt'] = ['secret', 'confidential']
+config['encryption']['format'] = 'split'
+config['encryption']['recipients'] = ['$PRIMARY_PUBKEY', '$BACKUP_PUBKEY']
+config['encryption']['primary_identity'] = '.mekb/age-key.txt'
+config['encryption']['backup_identity'] = '.mekb/backup-key.txt'
+config['encryption']['session_timeout_minutes'] = 30
+config['encryption']['index_encrypted_body'] = False
+config['encryption']['encrypt_on_classify'] = True
+
+config_path.write_text(json.dumps(config, indent=2) + '\n')
+print('   ✅ Encryption config saved to .mekb/security.json')
+"
+    fi
+
+    # Ensure key files are gitignored
+    for KEYFILE in ".mekb/age-key.txt" ".mekb/backup-key.txt"; do
+        if ! grep -q "$KEYFILE" .gitignore 2>/dev/null; then
+            echo "" >> .gitignore
+            echo "# Encryption key - NEVER commit" >> .gitignore
+            echo "$KEYFILE" >> .gitignore
+        fi
+    done
+    echo "   ✅ Key files added to .gitignore"
+
+    echo ""
+    echo "⚠️  IMPORTANT: Back up your keys!"
+    echo "   Store .mekb/backup-key.txt in your password manager (e.g. Bitwarden)"
+    echo "   If you lose both keys, encrypted notes CANNOT be recovered."
+    echo ""
+fi
+
 # Make scripts executable
 chmod +x scripts/*.py scripts/*.sh 2>/dev/null || true
 
@@ -146,3 +256,11 @@ echo "   personal     - AI can access (default)"
 echo "   confidential - AI will ask before access"
 echo "   secret       - AI access blocked"
 echo ""
+if [[ "$SETUP_ENCRYPT" =~ ^[Yy]$ ]]; then
+echo "🔑 Encryption Commands:"
+echo "   /encrypt <file>        - Encrypt a note"
+echo "   /decrypt <file>        - Decrypt a note"
+echo "   /encrypt audit         - Check encryption status"
+echo "   /encrypt setup         - Re-run encryption setup"
+echo ""
+fi

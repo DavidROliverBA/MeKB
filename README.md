@@ -33,8 +33,8 @@ MeKB/
 ├── Templates/          # 11 note templates
 ├── Archive/            # Completed/old content
 ├── .claude/skills/     # 36 AI-powered skills
-├── scripts/            # 12 production Python scripts
-│   └── tests/          # 236 tests across 12 test files
+├── scripts/            # 13 production Python scripts
+│   └── tests/          # 236 tests across 13 test files
 ├── .github/workflows/  # CI pipeline (7 parallel jobs)
 ├── CLAUDE.md           # AI assistant instructions
 ├── CHANGELOG.md        # Version history
@@ -239,7 +239,7 @@ Run `/stale` to find notes needing attention.
 
 MeKB includes a comprehensive test suite and CI pipeline:
 
-- **236 tests** across 12 test files (~80% coverage)
+- **236 tests** across 13 test files (~80% coverage)
 - **7 parallel CI jobs** via GitHub Actions on every push/PR
 - **~0.28s** total test runtime — fast feedback
 - **Dual runner support** — pytest (preferred) with unittest fallback
@@ -258,8 +258,9 @@ MeKB includes optional security features:
 - **Classification:** Mark notes as `public`, `personal`, `confidential`, or `secret`
 - **AI access control:** Protect sensitive files from AI assistants
 - **Secret detection:** Pre-commit hook blocks accidental credential commits
+- **Encryption at rest:** Encrypt classified notes using [age](https://age-encryption.org/) — plaintext frontmatter + encrypted body
 
-Run `./scripts/setup-security.sh` to enable. See [SECURITY.md](SECURITY.md) for details.
+Run `./scripts/setup-security.sh` to enable. See [SECURITY.md](SECURITY.md) for details, or [docs/ENCRYPTION.md](docs/ENCRYPTION.md) for the full encryption guide.
 
 **Golden rule:** Never store passwords in notes. Use a password manager.
 
@@ -289,9 +290,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and [TOOLS.md]
 | [TOOLS.md](TOOLS.md) | Complete tooling reference — all scripts, skills, search tiers, CI |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Development guidelines — tests, PR checklist, adding scripts/skills |
 | [SECURITY.md](SECURITY.md) | Security features — classification, access control, secret detection |
+| [docs/ENCRYPTION.md](docs/ENCRYPTION.md) | Encryption guide — installation, daily use, key management, uninstall |
 | [SOUL.md](SOUL.md) | Project philosophy and design principles |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and release notes |
-| [scripts/README.md](scripts/README.md) | Detailed documentation for all 12 production scripts |
+| [scripts/README.md](scripts/README.md) | Detailed documentation for all 13 production scripts |
 
 ## License
 

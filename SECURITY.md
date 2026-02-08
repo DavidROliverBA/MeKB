@@ -120,11 +120,84 @@ Manage classifications with Claude Code:
 
 Use a password manager instead.
 
-## Encryption Options
+## Built-in Encryption
 
-For sensitive vaults:
+MeKB has built-in per-note encryption using [age](https://age-encryption.org/) (actually good encryption). Notes classified as `confidential` or `secret` can be encrypted at rest with a single command.
 
-- **git-crypt** - Encrypt specific files in Git
+**How it works:** Split-format encryption preserves plaintext YAML frontmatter (so search, Dataview, and classification still work) while encrypting the markdown body with age.
+
+### Quick Start
+
+```bash
+# 1. Set up encryption (part of security setup)
+./scripts/setup-security.sh
+
+# 2. Encrypt a note
+python3 scripts/encrypt.py encrypt "Note - Client Credentials.md"
+
+# 3. Decrypt a note
+python3 scripts/encrypt.py decrypt "Note - Client Credentials.md" --identity .mekb/age-key.txt
+
+# 4. Audit encryption status
+python3 scripts/encrypt.py audit
+```
+
+Or with Claude Code:
+
+```
+/encrypt "Note - Client Credentials.md"
+/decrypt "Note - Client Credentials.md"
+/encrypt audit
+```
+
+### Key Management
+
+| File | Purpose | Location |
+|------|---------|----------|
+| `.mekb/age-key.txt` | Primary decryption key | gitignored, local only |
+| `.mekb/backup-key.txt` | Backup key for recovery | gitignored, store in password manager |
+
+Both keys are generated during setup and added to `.gitignore` automatically.
+
+### Integration with Classification
+
+When `encrypt_on_classify` is enabled (default):
+- `/classify set <file> confidential` auto-encrypts the note
+- `/classify set <file> personal` auto-decrypts the note
+- `/classify audit` reports encryption mismatches
+
+### What Gets Encrypted
+
+Only the markdown **body** is encrypted. Frontmatter stays plaintext:
+
+```yaml
+---
+title: Client Credentials          # Plaintext (searchable)
+classification: secret             # Plaintext (classification guard works)
+encrypted: true                    # Indicates body is encrypted
+encryption_method: age
+encryption_recipients: 2
+---
+-----BEGIN AGE ENCRYPTED FILE-----   # Body is ciphertext
+YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+...
+-----END AGE ENCRYPTED FILE-----
+```
+
+### Recovery
+
+If your primary key is lost:
+
+1. Retrieve backup key from your password manager
+2. Decrypt: `python3 scripts/encrypt.py decrypt <file> --identity .mekb/backup-key.txt`
+3. Generate new primary key: `age-keygen -o .mekb/age-key.txt`
+4. Re-encrypt all notes with new key
+
+See `docs/ENCRYPTION.md` for the full guide including installation, daily workflow, and upgrade/uninstall procedures.
+
+### Alternative External Options
+
+If you prefer external encryption instead of MeKB's built-in:
+
 - **Cryptomator** - Encrypted vault container
 - **Encrypted drive** - BitLocker, FileVault, LUKS
 
@@ -157,7 +230,8 @@ Check your AI provider's data policy. For sensitive work, consider:
 - [ ] Enable pre-commit hooks
 - [ ] Review existing notes for sensitive content
 - [ ] Classify sensitive notes appropriately
-- [ ] Set up encrypted backup for `secret/` folder
+- [ ] Set up encryption for classified notes (optional)
+- [ ] Back up encryption keys in password manager
 - [ ] Review AI provider data policies
 
 ---

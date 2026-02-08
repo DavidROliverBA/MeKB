@@ -164,6 +164,7 @@ When both indexes exist, search automatically uses hybrid fusion (70% BM25 + 30%
 | `/health`   | Vault health check              |
 | `/orphans`  | Find unlinked notes             |
 | `/classify` | Manage security classifications |
+| `/encrypt`  | Encrypt/decrypt classified notes |
 
 ## Frontmatter Schema
 
@@ -340,7 +341,7 @@ Flat tags like `important`, `idea`, `review` are fine too.
 
 3. **Check before sharing** - Search `classification: confidential` before publishing.
 
-4. **Encrypt if needed** - Use git-crypt, Cryptomator, or encrypted drives.
+4. **Encrypt classified notes** - Use `/encrypt` for confidential/secret notes. Encrypted body is not readable without the key, even by AI assistants.
 
 5. **Understand AI implications** - Notes may be sent to external servers.
 

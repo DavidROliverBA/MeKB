@@ -116,7 +116,14 @@ Add or update classification for a file.
 5. If no frontmatter:
    - Add frontmatter with classification
 6. Write file
-7. Confirm change
+7. **Encryption integration** (when encryption is enabled in `.mekb/security.json`):
+   - If raising to `confidential` or `secret` AND file is not encrypted:
+     - Auto-encrypt: `python3 scripts/encrypt.py encrypt "<file>"`
+     - Confirm encryption to user
+   - If lowering FROM `confidential`/`secret` to `personal`/`public` AND file IS encrypted:
+     - Auto-decrypt: `python3 scripts/encrypt.py decrypt "<file>" --identity <identity_path>`
+     - Confirm decryption to user
+8. Confirm change
 
 **Example:**
 ```
@@ -128,6 +135,7 @@ Add or update classification for a file.
 ✅ Updated classification for "Note - Client info.md"
    Level: confidential
    AI access: Will prompt before access (interactive mode)
+   Encryption: Encrypted with 2 recipients
 ```
 
 ---
@@ -143,6 +151,10 @@ Comprehensive security review.
 4. Check access log for denied attempts
 5. Verify security config is valid
 6. Check for secrets in content (run detect-secrets patterns)
+7. **Encryption audit** (when encryption is enabled):
+   - Run: `python3 scripts/encrypt.py audit --vault .`
+   - Report any classified files missing encryption
+   - Report any encrypted files without proper classification
 
 **Output:**
 ```
@@ -154,10 +166,16 @@ CLASSIFICATION STATUS
 - 67 notes classified
 - 23 notes unclassified (treated as personal)
 
+ENCRYPTION STATUS
+- 5 notes correctly encrypted
+- 2 classified notes NOT encrypted (need /encrypt)
+- 0 encrypted notes without classification
+
 POTENTIAL ISSUES
 ⚠️  3 files contain sensitive patterns without classification
 ⚠️  2 files in confidential/ folder lack explicit classification
 ⚠️  1 file may contain hardcoded credentials
+⚠️  2 confidential files are NOT encrypted
 
 ACCESS LOG (last 7 days)
 - 12 access attempts
@@ -168,10 +186,12 @@ RECOMMENDATIONS
 1. Review files flagged above
 2. Add classification to unclassified files in secure folders
 3. Check Note - API setup.md for potential secrets
+4. Run /encrypt on unencrypted classified files
 
 Config: .mekb/security.json
 Mode: interactive
 Write protection: enabled
+Encryption: enabled (age, split-format)
 ```
 
 ---

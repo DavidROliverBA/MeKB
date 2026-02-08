@@ -373,12 +373,12 @@ class TestEncryptBodyErrors(unittest.TestCase):
         with self.assertRaises(ValueError):
             encrypt_body("test", [])
 
-    @patch("encrypt.check_age_installed", return_value=False)
+    @patch.object(_enc, "check_age_installed", return_value=False)
     def test_no_age_raises(self, _mock):
         with self.assertRaises(RuntimeError):
             encrypt_body("test", ["age1fake..."])
 
-    @patch("encrypt.check_age_installed", return_value=False)
+    @patch.object(_enc, "check_age_installed", return_value=False)
     def test_decrypt_no_age_raises(self, _mock):
         with self.assertRaises(RuntimeError):
             decrypt_body("ciphertext", "/some/identity")
