@@ -132,7 +132,8 @@ FALSE_POSITIVES = [
     r"xxxx",
     r"test",
     r"dummy",
-    r"sample"
+    r"sample",
+    r"-----BEGIN AGE ENCRYPTED FILE-----",
 ]
 
 
