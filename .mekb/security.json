@@ -46,13 +46,13 @@
     ]
   },
   "encryption": {
-    "enabled": false,
+    "enabled": true,
     "tool": "age",
     "levels_to_encrypt": ["secret", "confidential"],
     "format": "split",
-    "recipients": [],
-    "se_identity": null,
-    "backup_identity": null,
+    "recipients": ["age1mk7tkkjvlkktuhwmcj6vglqxsa9txymdgmmf0qatpsg0zmxvrq6s2n5spq", "age1wd0qlrtjycqzrgnq2fpsr3z44d665qwu85vdg9fw3ndf9ar6m4hqxmuvsz"],
+    "se_identity": ".mekb/age-key.txt",
+    "backup_identity": ".mekb/backup-key.txt",
     "session_timeout_minutes": 30,
     "index_encrypted_body": false,
     "encrypt_on_classify": true

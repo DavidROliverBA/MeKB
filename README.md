@@ -46,7 +46,7 @@ MeKB/
 
 **36 Skills:** Capture, discover, review, automate, and maintain your knowledge
 
-**12 Scripts:** Search, graph, site generation, notifications, scheduling — zero external dependencies
+**13 Scripts:** Search, graph, site generation, notifications, scheduling — zero external dependencies
 
 ## Tool Compatibility
 
@@ -160,7 +160,7 @@ Works with any text editor. Enhanced experience with:
 
 ## Production Scripts
 
-12 Python scripts power search, automation, and maintenance. All use Python 3.9+ stdlib only — no `pip install` required for core functionality.
+13 Python scripts power search, automation, and maintenance. All use Python 3.9+ stdlib only — no `pip install` required for core functionality.
 
 | Script | Purpose |
 |--------|---------|
@@ -175,6 +175,7 @@ Works with any text editor. Enhanced experience with:
 | `stale-check.py` | Find notes needing review |
 | `webhook-server.py` | HTTP API for remote operations |
 | `skill-tools.py` | Skill management utilities |
+| `encrypt.py` | Per-note age encryption (encrypt/decrypt/audit) |
 | `detect-secrets.py` | Pre-commit secret scanner |
 
 See [scripts/README.md](scripts/README.md) for full documentation.
@@ -253,14 +254,25 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for test development guidelines.
 
 ## Security
 
-MeKB includes optional security features:
+MeKB includes built-in security features:
 
 - **Classification:** Mark notes as `public`, `personal`, `confidential`, or `secret`
-- **AI access control:** Protect sensitive files from AI assistants
+- **AI access control:** Protect sensitive files from AI assistants — `confidential` requires approval, `secret` is always blocked
 - **Secret detection:** Pre-commit hook blocks accidental credential commits
-- **Encryption at rest:** Encrypt classified notes using [age](https://age-encryption.org/) — plaintext frontmatter + encrypted body
+- **Encryption at rest:** Encrypt classified notes using [age](https://age-encryption.org/) — plaintext frontmatter stays searchable, body is encrypted with age
 
-Run `./scripts/setup-security.sh` to enable. See [SECURITY.md](SECURITY.md) for details, or [docs/ENCRYPTION.md](docs/ENCRYPTION.md) for the full encryption guide.
+```bash
+# Encrypt a confidential note
+python3 scripts/encrypt.py encrypt "Note - Client Credentials.md"
+
+# Decrypt when needed
+python3 scripts/encrypt.py decrypt "Note - Client Credentials.md"
+
+# Audit encryption status across the vault
+python3 scripts/encrypt.py audit
+```
+
+See [SECURITY.md](SECURITY.md) for details, or [docs/ENCRYPTION.md](docs/ENCRYPTION.md) for the full encryption guide.
 
 **Golden rule:** Never store passwords in notes. Use a password manager.
 

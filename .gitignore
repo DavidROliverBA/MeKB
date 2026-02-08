@@ -24,6 +24,10 @@ credentials/
 # Classified folders (secret is never committed)
 secret/
 
+# Encryption keys - NEVER commit these
+.mekb/age-key.txt
+.mekb/backup-key.txt
+
 # Security logs
 .mekb/access-log.jsonl
 .mekb/*_state_*.json

@@ -13,6 +13,7 @@ This enables:
 - Secret detection (pre-commit hook)
 - AI access control
 - Classified folders
+- Encryption key generation (age)
 
 ## Classification Levels
 
@@ -129,16 +130,16 @@ MeKB has built-in per-note encryption using [age](https://age-encryption.org/) (
 ### Quick Start
 
 ```bash
-# 1. Set up encryption (part of security setup)
-./scripts/setup-security.sh
-
-# 2. Encrypt a note
+# Encrypt a classified note
 python3 scripts/encrypt.py encrypt "Note - Client Credentials.md"
 
-# 3. Decrypt a note
-python3 scripts/encrypt.py decrypt "Note - Client Credentials.md" --identity .mekb/age-key.txt
+# Decrypt when you need to read or edit
+python3 scripts/encrypt.py decrypt "Note - Client Credentials.md"
 
-# 4. Audit encryption status
+# Check a specific note's encryption status
+python3 scripts/encrypt.py status "Note - Client Credentials.md"
+
+# Audit the entire vault for encryption mismatches
 python3 scripts/encrypt.py audit
 ```
 
@@ -147,7 +148,15 @@ Or with Claude Code:
 ```
 /encrypt "Note - Client Credentials.md"
 /decrypt "Note - Client Credentials.md"
+/encrypt status "Note - Client Credentials.md"
 /encrypt audit
+```
+
+If encryption keys haven't been generated yet, run `./scripts/setup-security.sh` or generate them manually:
+
+```bash
+age-keygen -o .mekb/age-key.txt       # Primary key
+age-keygen -o .mekb/backup-key.txt    # Backup key (store in password manager)
 ```
 
 ### Key Management
@@ -226,12 +235,12 @@ Check your AI provider's data policy. For sensitive work, consider:
 
 ## Checklist
 
-- [ ] Run `./scripts/setup-security.sh`
-- [ ] Enable pre-commit hooks
+- [x] Run `./scripts/setup-security.sh`
+- [x] Enable pre-commit hooks
 - [ ] Review existing notes for sensitive content
 - [ ] Classify sensitive notes appropriately
-- [ ] Set up encryption for classified notes (optional)
-- [ ] Back up encryption keys in password manager
+- [x] Set up encryption for classified notes
+- [ ] Back up encryption keys in password manager (`.mekb/backup-key.txt`)
 - [ ] Review AI provider data policies
 
 ---
