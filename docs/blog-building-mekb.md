@@ -59,6 +59,24 @@ Plain text means:
 
 The trade-off is speed. Searching ten thousand text files with grep takes a few seconds. So I built a search index — a small script that creates a lookup table. Now searches take 0.01 seconds. But if the index breaks, you still have grep. Your notes never depend on the tooling.
 
+## The OpenClaw wake-up call
+
+While I was building MeKB, something happened that confirmed every instinct I had about how *not* to build a knowledge system.
+
+OpenClaw — an AI agent platform — went massively viral. Hundreds of thousands of people connected it to their email, their Slack, their WhatsApp. It could read your messages, manage your calendar, browse the web on your behalf. It was genuinely impressive, and it racked up 171,000 GitHub stars in weeks.
+
+Then it started falling apart.
+
+A security researcher found a vulnerability that let attackers run code on your machine through the tool. A database breach exposed 1.5 million API tokens — the keys people had given OpenClaw to access their accounts. Hundreds of malicious plugins appeared in its skill registry, disguised as useful add-ons. CrowdStrike, the cybersecurity firm, published a warning calling it a potential "powerful AI backdoor agent."
+
+The root cause wasn't incompetence. It was architecture. OpenClaw had over 500 software dependencies — 500 pieces of code written by other people that you had to trust. It stored your credentials in plain text files. It had no way to classify which of your notes were sensitive and which weren't. Everything was equally accessible to everything else.
+
+I looked at that and thought: this is exactly what happens when you build for features first and security second. MeKB does it the other way round.
+
+Zero dependencies means zero supply chain risk. Nobody can sneak malicious code into a library you don't use. The four-tier classification system means your confidential notes stay confidential — they don't show up in search results, AI queries, or exports. There's no network server to exploit, no credential store to breach, no plugin registry to poison.
+
+It's less flashy than an AI agent that manages your entire digital life. But it's yours, it's private, and it won't make headlines for the wrong reasons.
+
 ## The magic: connections
 
 Here's where it gets interesting.
