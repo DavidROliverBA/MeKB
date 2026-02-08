@@ -303,39 +303,57 @@ def main():
         if config.get("ai_access_control", {}).get("log_access_attempts", False):
             log_access(file_path, classification, "blocked", mode)
 
-        action = "read" if is_read else "write to"
-        print(f"\n🚫 ACCESS DENIED", file=sys.stderr)
-        print(f"File: {file_path}", file=sys.stderr)
-        print(f"Classification: {classification.upper()}", file=sys.stderr)
-        print(f"\nAI access is blocked for {classification} files.", file=sys.stderr)
-        print(f"To allow access:", file=sys.stderr)
-        print(f"  1. Change the file's classification, or", file=sys.stderr)
-        print(f"  2. Update .mekb/security.json", file=sys.stderr)
-        sys.exit(2)
+        output = {
+            "decision": "block",
+            "reason": (
+                f"🚫 ACCESS DENIED\n"
+                f"File: {file_path}\n"
+                f"Classification: {classification.upper()}\n\n"
+                f"AI access is blocked for {classification} files.\n"
+                f"To allow access:\n"
+                f"  1. Change the file's classification, or\n"
+                f"  2. Update .mekb/security.json"
+            )
+        }
+        print(json.dumps(output))
+        sys.exit(0)
 
     elif rule == "ask":
         if mode == "strict":
             # In strict mode, "ask" becomes "block"
             if config.get("ai_access_control", {}).get("log_access_attempts", False):
                 log_access(file_path, classification, "blocked", "strict")
-            print(f"\n🚫 ACCESS DENIED (strict mode)", file=sys.stderr)
-            print(f"File: {file_path}", file=sys.stderr)
-            print(f"Classification: {classification.upper()}", file=sys.stderr)
-            sys.exit(2)
+            output = {
+                "decision": "block",
+                "reason": (
+                    f"🚫 ACCESS DENIED (strict mode)\n"
+                    f"File: {file_path}\n"
+                    f"Classification: {classification.upper()}\n\n"
+                    f"Strict mode blocks all {classification} file access."
+                )
+            }
+            print(json.dumps(output))
+            sys.exit(0)
         else:
             # Interactive mode - block but with guidance
             if config.get("ai_access_control", {}).get("log_access_attempts", False):
                 log_access(file_path, classification, "prompted", mode)
 
-            print(f"\n⚠️  CLASSIFICATION CHECK", file=sys.stderr)
-            print(f"File: {file_path}", file=sys.stderr)
-            print(f"Classification: {classification.upper()}", file=sys.stderr)
-            print(f"\nThis file is marked {classification.upper()}.", file=sys.stderr)
-            print(f"AI access requires explicit approval.", file=sys.stderr)
-            print(f"\nTo allow access for this session, run:", file=sys.stderr)
-            print(f"  claude --allow-file \"{file_path}\"", file=sys.stderr)
-            print(f"\nOr update .mekb/security.json to change the rule.", file=sys.stderr)
-            sys.exit(2)
+            output = {
+                "decision": "block",
+                "reason": (
+                    f"⚠️ CLASSIFICATION CHECK\n"
+                    f"File: {file_path}\n"
+                    f"Classification: {classification.upper()}\n\n"
+                    f"This file is marked {classification.upper()}. "
+                    f"AI access requires explicit approval.\n\n"
+                    f"To allow access:\n"
+                    f"  1. Reclassify: /classify set \"{file_path}\" personal\n"
+                    f"  2. Change rule in .mekb/security.json (set confidential to \"allow\")"
+                )
+            }
+            print(json.dumps(output))
+            sys.exit(0)
 
     sys.exit(0)
 
