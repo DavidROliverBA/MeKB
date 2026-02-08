@@ -44,5 +44,17 @@
       "ssh-rsa",
       "BEGIN.*PRIVATE KEY"
     ]
+  },
+  "encryption": {
+    "enabled": false,
+    "tool": "age",
+    "levels_to_encrypt": ["secret", "confidential"],
+    "format": "split",
+    "recipients": [],
+    "se_identity": null,
+    "backup_identity": null,
+    "session_timeout_minutes": 30,
+    "index_encrypted_body": false,
+    "encrypt_on_classify": true
   }
 }

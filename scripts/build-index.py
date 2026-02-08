@@ -90,6 +90,7 @@ def parse_frontmatter(content):
         "tags": extract_list(yaml_text, "tags"),
         "verified": extract_field(yaml_text, "verified"),
         "status": extract_field(yaml_text, "status"),
+        "encrypted": extract_field(yaml_text, "encrypted"),
     }
 
     return fm, body
@@ -146,6 +147,7 @@ def create_schema(conn):
             created TEXT,
             tags TEXT,
             classification TEXT DEFAULT 'personal',
+            encrypted INTEGER DEFAULT 0,
             status TEXT,
             verified TEXT,
             content TEXT,
@@ -222,17 +224,22 @@ def index_note(conn, path, vault_root):
     tags = ", ".join(fm.get("tags") or [])
     status = fm.get("status")
     verified = fm.get("verified")
+    is_encrypted = fm.get("encrypted") in ("true", "True", True)
+
+    # For encrypted notes, index metadata only (no plaintext body in index)
+    indexed_body = "[ENCRYPTED]" if is_encrypted else body
 
     # Upsert
     conn.execute("""
-        INSERT INTO notes (path, title, type, created, tags, classification, status, verified, content, mtime)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO notes (path, title, type, created, tags, classification, encrypted, status, verified, content, mtime)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(path) DO UPDATE SET
             title=excluded.title, type=excluded.type, created=excluded.created,
             tags=excluded.tags, classification=excluded.classification,
+            encrypted=excluded.encrypted,
             status=excluded.status, verified=excluded.verified,
             content=excluded.content, mtime=excluded.mtime
-    """, (rel_path, title, note_type, created, tags, classification, status, verified, body, mtime))
+    """, (rel_path, title, note_type, created, tags, classification, int(is_encrypted), status, verified, indexed_body, mtime))
 
     return True
 
@@ -283,6 +290,14 @@ def show_stats(db_path):
         print("\nBy classification:")
         for cls, count in rows:
             print(f"  {cls:<20} {count:>4}")
+
+    # Encrypted notes
+    try:
+        enc_count = conn.execute("SELECT COUNT(*) FROM notes WHERE encrypted = 1").fetchone()[0]
+        if enc_count > 0:
+            print(f"\nEncrypted notes: {enc_count} (metadata-only in index)")
+    except sqlite3.OperationalError:
+        pass  # Column may not exist in older indexes
 
     # Index freshness
     meta = conn.execute("SELECT value FROM meta WHERE key = 'last_built'").fetchone()

@@ -55,7 +55,7 @@ def fts5_search(db_path, query, note_type=None, limit=20, exclude_classification
 
     sql = """
         SELECT n.path, n.title, n.type, n.tags, n.classification,
-               n.created, n.status, n.verified,
+               n.created, n.status, n.verified, n.encrypted,
                f.rank AS bm25_rank,
                snippet(fts_notes, 3, '>>>', '<<<', '...', 40) AS snippet
         FROM fts_notes f
@@ -101,6 +101,7 @@ def fts5_search(db_path, query, note_type=None, limit=20, exclude_classification
             "created": row["created"],
             "status": row["status"],
             "verified": row["verified"],
+            "encrypted": bool(row["encrypted"]) if "encrypted" in row.keys() else False,
             "bm25_score": abs(row["bm25_rank"]) if row["bm25_rank"] else 0,
             "snippet": clean_snippet(row["snippet"]),
             "source": "fts5",
@@ -297,11 +298,12 @@ def format_results(results, explain=False):
         note_type = r.get("type") or "unknown"
         title = r.get("title") or r["path"]
         path = r["path"]
+        encrypted_tag = " [ENCRYPTED]" if r.get("encrypted") else ""
 
-        print(f"  {i}. [{note_type}] {title}")
+        print(f"  {i}. [{note_type}] {title}{encrypted_tag}")
         print(f"     {path}")
 
-        if r.get("snippet"):
+        if r.get("snippet") and r["snippet"].strip() != "[ENCRYPTED]":
             # Truncate long snippets
             snippet = r["snippet"][:200]
             print(f"     {snippet}")
