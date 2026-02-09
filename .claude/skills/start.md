@@ -55,8 +55,8 @@ Create `Daily/YYYY/YYYY-MM-DD.md` with personalised welcome:
 ```markdown
 ---
 type: Daily
-title: { { date } }
-created: { { date } }
+title: {{date}}
+created: {{date}}
 tags: []
 ---
 
@@ -126,7 +126,7 @@ Create `Task - Complete MeKB setup.md`:
 ---
 type: Task
 title: Complete MeKB setup
-created: { { date } }
+created: {{date}}
 completed: false
 due: null
 project: null
