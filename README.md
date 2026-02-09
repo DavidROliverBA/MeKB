@@ -261,18 +261,33 @@ MeKB includes built-in security features:
 - **Secret detection:** Pre-commit hook blocks accidental credential commits
 - **Encryption at rest:** Encrypt classified notes using [age](https://age-encryption.org/) — plaintext frontmatter stays searchable, body is encrypted with age
 
+### Example: Encrypting a Person Note
+
 ```bash
-# Encrypt a confidential note
-python3 scripts/encrypt.py encrypt "Note - Client Credentials.md"
+# 1. Create a note with classification: confidential in frontmatter
+#    (any note type works — Person, Meeting, Decision, etc.)
 
-# Decrypt when needed
-python3 scripts/encrypt.py decrypt "Note - Client Credentials.md"
+# 2. Encrypt it — body becomes age ciphertext, frontmatter stays plaintext
+python3 scripts/encrypt.py encrypt "Person - Alex Rivera.md"
 
-# Audit encryption status across the vault
+# 3. Verify — search and Obsidian still see the frontmatter (title, tags, etc.)
+#    but the body is unreadable without your key
+python3 scripts/encrypt.py status "Person - Alex Rivera.md"
+#=> ENCRYPTED (age, 2 recipients)
+
+# 4. Decrypt when you need to read or edit
+python3 scripts/encrypt.py decrypt "Person - Alex Rivera.md"
+
+# 5. Re-encrypt when done
+python3 scripts/encrypt.py encrypt "Person - Alex Rivera.md"
+
+# Audit the whole vault for encryption mismatches
 python3 scripts/encrypt.py audit
 ```
 
-See [SECURITY.md](SECURITY.md) for details, or [docs/ENCRYPTION.md](docs/ENCRYPTION.md) for the full encryption guide.
+AI assistants are automatically blocked from reading encrypted/classified files by the classification guard hook.
+
+See [SECURITY.md](SECURITY.md) for setup details, or [docs/ENCRYPTION.md](docs/ENCRYPTION.md) for the full encryption guide.
 
 **Golden rule:** Never store passwords in notes. Use a password manager.
 

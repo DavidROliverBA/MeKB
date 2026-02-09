@@ -1,0 +1,81 @@
+---
+type: Person
+title: Alex Rivera
+created: 2026-02-08
+tags: [area/work]
+classification: confidential
+
+# Contact
+role: Engineering Manager
+organisation: Nexus Systems
+email: alex.rivera@nexussystems.io
+phone: "+44 7700 900123"
+linkedin: linkedin.com/in/alexrivera
+location: London, UK
+
+# Relationship
+relationship_type: client
+met_date: 2025-11-15
+met_context: Cloud migration project kick-off
+introduced_by: "[[Person - Sarah Chen]]"
+
+# Professional
+expertise: [distributed-systems, kubernetes, platform-engineering]
+projects_together: [cloud-migration-nexus]
+can_help_with: [k8s-architecture, team-intros-at-nexus]
+i_can_help_them: [event-driven-design, observability]
+
+# Tracking
+last_contact: 2026-02-06
+contact_frequency: monthly
+next_followup: 2026-03-01
+relationship_strength: medium
+encrypted: true
+encryption_method: age
+encryption_recipients: 2
+---
+-----BEGIN AGE ENCRYPTED FILE-----
+YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDY2xuOHFkMEZhdzRWRkJT
+aEI3UHJMeXJqSHc4bVlFU09KeDFxc3ZJcDBZCnhZRDlyZE9pTU1Xcy92ZWFHYlVZ
+b25KRWhEbUhBbnNCTmdHWk1Sbk12TU0KLT4gWDI1NTE5IFFEd2RVS1RRZExLRUlv
+dWdubHN3K1RrN3JWenlXdzBlZ1lWU01jV0lHM2MKYVFJeUNyd2owMmRDVEgxdFJH
+MFhkT2JCZHplcjJmcGFmbkZvTzhoaS9ZRQotLS0gMTZrZU0xYTNmYXVvOGp4ODY2
+aElnUXgwOTNuRjc2ZkxWdWZ3L3pOMmE3VQq+xLMFESjZj/5k56WNj/tMzX+vMtBI
+1+q4gQbjvIONt8LY5tVJuU/k40JcsvedR+0hbUDILcsB6auzAvunixbi7Srdh/Kr
+RWpc1TyX2AShhlxOIE7WIV2/S6ewXR/FVc9byAKqmEzR39DB6RKFNF/YWUf6HZaf
+pDV5CgQewc1UVPIPN1jjy9gCJw8BWy5OOrbL4d725FdaA74BlnviAm3aCpc22ak3
+Bq6ncqOIkRkslD6raCgDVWp9cgZY3e02ZrxlDcA89SP9hyzNczCYWGw2adFX198/
+W1Xb5N2JS8Ttr/tk60GnbEMMcGY4JdI12otlwhVqTVq4WOhHEcklqbK7/536By7O
+txVDtTBJCBpMvryGGHlFkyWXjcSYUbVQK0rYFrbq2d2OF4u/4yi+LCjJZgawAHY+
+vIo5dCR7++Ss0XR9KmrWXvOo/qelqgMdJSthCyjHVPn9ITNENhjEDLaMlgnuMgP5
+Oen3Nuv6wrvwQV7OUjEHJaMp6sroH7GxnSVkBiBE0w4myOvIT/0fawFSaIZRHO7w
+Dq4BlSI3X19Mw1fYdFGjo5tlniqozsDdkeSPoeko5MVT0xWeStJ5CSAWI/1cedZ9
+AQsFfWM9YbeQEuBMnIJqGE3aGIu/QyjXFnlsq3KLUjUFL+h6xGdi1Yb7SJ6+pzkZ
+vSXebo4l18g4LnrQeqDs11qfl5jrLvCD/cDlCfXErqQjaVtuJnaHBU4ZTo1Ploc4
+81HWM+/rUek/vhegZDqeVOO34JLf4oLkKvMjeakEmeUkNQvnjHQ8/agTM+nbg/vd
+BwZALAPz88m1XPafzcERtAwIGffrpkNnaQ5gXtOx6i3Hj1zWjbQTdpjjwWG6eZJx
+nwFpqz03GFPu8eNPJaUh/RTPztMX9eMY+unZikDJHOLQenVop4IRegiwHtFchJzt
+ml/WQNClW3FrOihUo/8fDtikj9HokzAhlvLdf7klR1CRmd+Mca6m2POZZXknulMb
+ppjo/wDbQBZB92LNHJGS+QLNKxgKxM0Bo2/Sf68eqezqPk7dsXtoO7O8p08mtVSD
+pSdQ+BHF+/lhWt8ZxVWTwPUajwobwWeWNAn9LFk7/Lw6q13K3l3OPUXDhMFKu6dk
+sFqgr4cbkuBJ3LuZfUN7ujMWuViX+a9z0tjtSph7YwsfbakBPBB57rthmU2qxYt0
+OfzcufyX75wdJYIl+sJ6i/b0aYODRiY8C/if0TkMSIjVjTKLoeuxyaDU8x3r8iKv
+3a17ZT39FdEURxElFRn+nPpc/MCN5OitU9PwbR16kBP1p0ktHTPNVtEkgQWB418b
+LxaFt4WyOhJ9XA7gmBSChC77zOL+4rNBs/Gx8o6ucFm7Zqjni83Xl9mlNeqaRVJl
+ccFO8wFRox4lUQ2ltgxFZUT+Sbz1rycAJ+tw+U6llnC32LIRKRfzhdzhZSpEQpAa
+z7225477fG+0DNP1iCBKO9r0wpFRVYiqCae5mrGufFEoOsAN5TSF7mYpc4QTjqN/
+MTL7zICHzVGl6OlUTSUNNSA2r5Qz+7c0KggH4KvFSmatLPyQ7p9KUz6ImfylXz5l
+NygPeqq9Ceq9/+lnOiPZCDowboPCAdWgAFKu1PZQ+0o0HZ1hDUHK2ui5J2yisydX
+I8V4H3JWs96alwZo3A7H1HgRjgNg+S3eFgMz69TOfFG+VzQEM0AseDFsOBJCYII5
+PTheBljCT4uLEHDIkOcjEek4mrFZhs+3Gjsv8/wBu0vdtRwW430AZSFwguRecGhL
+G+0brN4oVWGFCV00HOEZZQUOCDY9ZxnuTXX7k7BtcJpCEtqkAXxIL62POo2cuAJV
+InR3htfdnIsA2vJr2PqnyFuLbxVIL1S7IhYUSU5XVtJQ8Ltb3ITOwwlFUPEUTDgQ
+MJGVGcmIkYRVVFmlEQw7dNjg/o0Z4a7uUoLDSOikm/qV8iec0Hf2HitsrWQZY/LG
+Ow6jZADlPxmgyTbYVtTvUMc+TjXTdFG7OTOWQ4xatg8OMArr1uXbiXAs1Mr+i5kK
+LKADfhVMECk0JiHDdyKbdmvQ4H4RGuytuVa5/z9a/HCwANka+oLVNJh2MbvnW9iE
+P9hRljnovaPQvlQYBnlg3NqDmcSH3Cp025Aea7Fx9AaQuDUWlOOa2kHF7QUZiAkw
+lTcfjZoNaR6b8ZhAFadlFdT5wE+yMcVk0Q+q+9V2kLRVc/PMkuyduk66apNc+X61
+bl+KDKoE6PhgZ3DYeLNiQqre6OwdMA1X0TmEyRK0oSzClGsm8hSRqFzpwZqGuigB
+28F+KhcODktQWs2UUkF+MmrsGnqraO2ecAMkJJrdVlP+AmwM6TdaJtD4bmi3PYsI
+VNOtpeiLvsfSuhvtbAAEeBO2g7UmW5NSPeafNFPb2iaU
+-----END AGE ENCRYPTED FILE-----
