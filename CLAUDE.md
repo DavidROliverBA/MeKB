@@ -347,6 +347,22 @@ Flat tags like `important`, `idea`, `review` are fine too.
 
 6. **Backup with 3-2-1** - 3 copies, 2 media types, 1 offsite.
 
+## Encryption
+
+Encryption is enabled using [age](https://age-encryption.org/). Keys are in `.mekb/age-key.txt` (gitignored).
+
+```bash
+python3 scripts/encrypt.py encrypt "File.md"   # Encrypt
+python3 scripts/encrypt.py decrypt "File.md"   # Decrypt
+python3 scripts/encrypt.py status "File.md"    # Check status
+python3 scripts/encrypt.py audit               # Vault-wide audit
+```
+
+- Classification guard hook blocks `Read` on `confidential`/`secret` files — use `encrypt.py status` or bash to inspect
+- Frontmatter stays plaintext (searchable); only the body is encrypted
+- Config: `.mekb/security.json` (`encryption.enabled: true`)
+- Keys backed up in Bitwarden ("MeKB Encryption Keys")
+
 ## Tool Compatibility
 
 MeKB works with any text editor. Enhanced experience with:
