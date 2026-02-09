@@ -2,14 +2,14 @@
 type: Decision
 title: {{title}}
 created: {{date}}
-status: proposed
+status: proposed # proposed | approved | rejected
 tags: []
 
 # Decision Context
 context: null
 problem_statement: null
 
-# Options Considered  
+# Options Considered
 alternatives:
   - option: null
     pros: []
@@ -33,5 +33,30 @@ relationships:
   references: []
 
 # Quality
-confidence: medium
-verified: {{date}}
+confidence: medium # high | medium | low
+verified: null
+---
+
+# {{title}}
+
+## Context
+
+## Problem
+
+## Options
+
+### Option 1
+
+**Pros:**
+-
+
+**Cons:**
+-
+
+## Decision
+
+## Reasoning
+
+## Consequences
+
+-

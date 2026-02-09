@@ -1,7 +1,7 @@
 ---
 type: Daily
-title: { { date } }
-created: { { date } }
+title: {{date}}
+created: {{date}}
 tags:
   - daily
 ---

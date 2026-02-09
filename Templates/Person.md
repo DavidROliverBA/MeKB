@@ -13,7 +13,7 @@ linkedin: null
 location: null
 
 # Relationship
-relationship_type: colleague | client | vendor | friend | mentor | mentee | contact
+relationship_type: null # colleague | client | vendor | friend | mentor | mentee | contact
 met_date: null
 met_context: null
 introduced_by: null
@@ -26,9 +26,9 @@ i_can_help_them: []
 
 # Tracking
 last_contact: null
-contact_frequency: weekly | monthly | quarterly | yearly | null
+contact_frequency: null # weekly | monthly | quarterly | yearly
 next_followup: null
-relationship_strength: strong | medium | weak | dormant
+relationship_strength: null # strong | medium | weak | dormant
 ---
 
 # {{name}}

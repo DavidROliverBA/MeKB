@@ -1,8 +1,8 @@
 ---
 type: Project
-title: { { title } }
-created: { { date } }
-status: active
+title: {{title}}
+created: {{date}}
+status: active # active | paused | completed
 tags: []
 ---
 

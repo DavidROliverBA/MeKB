@@ -1,7 +1,7 @@
 ---
 type: Meeting
-title: { { title } }
-date: { { date } }
+title: {{title}}
+date: {{date}}
 attendees: []
 tags: []
 ---

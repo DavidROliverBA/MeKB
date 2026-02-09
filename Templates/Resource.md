@@ -4,8 +4,8 @@ title: {{title}}
 url: {{url}}
 created: {{date}}
 tags: []
-read_status: unread
-verified: {{date}}
+read_status: unread # unread | reading | read
+verified: null
 ---
 
 # {{title}}

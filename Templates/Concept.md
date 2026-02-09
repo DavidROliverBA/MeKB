@@ -3,7 +3,7 @@ type: Concept
 title: {{title}}
 created: {{date}}
 tags: []
-verified: {{date}}
+verified: null
 
 # Relationships
 relationships:
