@@ -16,17 +16,32 @@ class TestSkillFormat(unittest.TestCase):
 
     def setUp(self):
         """Collect all skill files."""
-        self.skills = list(SKILLS_DIR.glob("*.md"))
+        self.skills = list(SKILLS_DIR.glob("*/SKILL.md"))
         self.assertGreater(len(self.skills), 0, "No skill files found")
 
     def test_all_skills_have_header(self):
-        """Every skill should start with # /name."""
+        """Every skill should start with # /name (after optional frontmatter)."""
         for skill_path in self.skills:
             content = skill_path.read_text()
-            first_line = content.strip().split("\n")[0]
+            lines = content.strip().split("\n")
+            # Skip YAML frontmatter if present
+            start = 0
+            if lines and lines[0].strip() == "---":
+                for i in range(1, len(lines)):
+                    if lines[i].strip() == "---":
+                        start = i + 1
+                        break
+            # Find first non-blank line after frontmatter
+            header = None
+            for line in lines[start:]:
+                if line.strip():
+                    header = line
+                    break
+            skill_name = skill_path.parent.name
+            self.assertIsNotNone(header, f"{skill_name}/SKILL.md has no content")
             self.assertTrue(
-                first_line.startswith("# /"),
-                f"{skill_path.name} does not start with '# /' header"
+                header.startswith("# /"),
+                f"{skill_name}/SKILL.md does not start with '# /' header (found: {header!r})"
             )
 
     def test_most_skills_have_usage_section(self):
@@ -60,20 +75,30 @@ class TestSkillFormat(unittest.TestCase):
             f"Too many skills missing Instructions section: {missing}"
         )
 
-    def test_skill_name_matches_filename(self):
-        """Skill header should match filename."""
+    def test_skill_name_matches_directory(self):
+        """Skill header should match parent directory name."""
         for skill_path in self.skills:
             content = skill_path.read_text()
-            first_line = content.strip().split("\n")[0]
-            # Extract command name from header
-            match = re.match(r"# /(\w+)", first_line)
-            if match:
-                command = match.group(1)
-                filename = skill_path.stem
-                self.assertEqual(
-                    command, filename,
-                    f"Skill header '/{command}' doesn't match filename '{filename}.md'"
-                )
+            lines = content.strip().split("\n")
+            # Skip YAML frontmatter if present
+            start = 0
+            if lines and lines[0].strip() == "---":
+                for i in range(1, len(lines)):
+                    if lines[i].strip() == "---":
+                        start = i + 1
+                        break
+            # Find first non-blank line with header
+            for line in lines[start:]:
+                if line.strip():
+                    match = re.match(r"# /(\w[\w-]*)", line)
+                    if match:
+                        command = match.group(1)
+                        dir_name = skill_path.parent.name
+                        self.assertEqual(
+                            command, dir_name,
+                            f"Skill header '/{command}' doesn't match directory '{dir_name}'"
+                        )
+                    break
 
     def test_no_broken_script_references(self):
         """Script references in skills should point to existing files."""
@@ -104,12 +129,22 @@ class TestSkillConsistency(unittest.TestCase):
     def test_no_duplicate_skill_commands(self):
         """Each skill command should be unique."""
         commands = []
-        for skill_path in SKILLS_DIR.glob("*.md"):
+        for skill_path in SKILLS_DIR.glob("*/SKILL.md"):
             content = skill_path.read_text()
-            first_line = content.strip().split("\n")[0]
-            match = re.match(r"# /(\w+)", first_line)
-            if match:
-                commands.append(match.group(1))
+            lines = content.strip().split("\n")
+            # Skip frontmatter
+            start = 0
+            if lines and lines[0].strip() == "---":
+                for i in range(1, len(lines)):
+                    if lines[i].strip() == "---":
+                        start = i + 1
+                        break
+            for line in lines[start:]:
+                if line.strip():
+                    match = re.match(r"# /(\w[\w-]*)", line)
+                    if match:
+                        commands.append(match.group(1))
+                    break
         self.assertEqual(len(commands), len(set(commands)),
                         f"Duplicate skill commands found")
 

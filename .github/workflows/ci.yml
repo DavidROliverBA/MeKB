@@ -73,7 +73,7 @@ jobs:
         run: python3 -m pytest scripts/tests/test_skills.py -v
       - name: Count skills
         run: |
-          count=$(ls -1 .claude/skills/*.md | wc -l)
+          count=$(find .claude/skills -name "SKILL.md" | wc -l)
           echo "Found $count skills"
 
   site:
