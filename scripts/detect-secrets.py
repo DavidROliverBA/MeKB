@@ -134,6 +134,7 @@ FALSE_POSITIVES = [
     r"dummy",
     r"sample",
     r"-----BEGIN AGE ENCRYPTED FILE-----",
+    r"age1[a-z0-9]{58}",  # age public keys (recipients) — safe to commit
 ]
 
 
