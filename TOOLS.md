@@ -4,7 +4,7 @@ Reference for MeKB's tooling capabilities.
 
 ## Scripts
 
-12 production scripts in `scripts/`. All use Python 3.9+ stdlib only (no external dependencies unless noted).
+13 production scripts in `scripts/`. All use Python 3.9+ stdlib only (no external dependencies unless noted).
 
 | Script | Purpose | Dependencies |
 |--------|---------|-------------|
@@ -20,6 +20,7 @@ Reference for MeKB's tooling capabilities.
 | `scripts/webhook-server.py` | HTTP API for remote operations | stdlib only |
 | `scripts/skill-tools.py` | Skill listing, validation, export/import | stdlib only |
 | `scripts/detect-secrets.py` | Pre-commit secret scanner | stdlib only |
+| `scripts/migrate-skill-frontmatter.py` | Add kepano frontmatter to skills | stdlib only |
 | `scripts/setup-security.sh` | Security setup wizard | bash |
 
 See [scripts/README.md](scripts/README.md) for full documentation, usage examples, and architecture.
@@ -53,7 +54,7 @@ Install with: `python3 scripts/schedule.py install`
 
 ## Skills
 
-36 skills available in `.claude/skills/`. Categories:
+40 skills available in `.claude/skills/`. Categories:
 
 ### Capture
 
@@ -68,6 +69,7 @@ Install with: `python3 scripts/schedule.py install`
 | `/weblink <url>` | Save URL with summary |
 | `/clip <url>` | Web clipper (YouTube, etc.) |
 | `/voice` | Voice note transcription |
+| `/de-ai-ify` | Rewrite AI text to sound human |
 
 ### Discover
 
@@ -82,6 +84,7 @@ Install with: `python3 scripts/schedule.py install`
 | `/graph` | Explore note connections |
 | `/connections` | Deep relationship analysis |
 | `/browse <url>` | Fetch and extract web content |
+| `/spotlight` | Search non-markdown files (macOS) |
 
 ### Review & Reflect
 
@@ -126,6 +129,7 @@ Install with: `python3 scripts/schedule.py install`
 |-------|---------|
 | `/health` | Vault health check |
 | `/orphans` | Find unlinked notes |
+| `/inbox` | Find unprocessed files |
 | `/classify` | Manage security levels |
 | `/start` | Guided onboarding |
 

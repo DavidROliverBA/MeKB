@@ -114,9 +114,15 @@ Optional dependencies are allowed but must degrade gracefully:
 
 ## Adding a Skill
 
-1. Create in `.claude/skills/` with `.md` extension
-2. Follow the format:
+Skills use a **subdirectory layout**: each skill lives in `.claude/skills/<name>/SKILL.md`.
+
+1. Create a directory: `.claude/skills/<name>/`
+2. Create `SKILL.md` inside it with YAML frontmatter and the skill content:
    ```markdown
+   ---
+   name: skill-name
+   ---
+
    # /skill-name
 
    Brief description.
@@ -127,10 +133,11 @@ Optional dependencies are allowed but must degrade gracefully:
    ## Instructions
    Step-by-step implementation guide.
    ```
-3. Skill name must match filename
+3. Skill command in the `# /` header must match the directory name
 4. Reference scripts with `python3 scripts/name.py`
 5. Update `CLAUDE.md` skills table
 6. Run `python3 -m pytest scripts/tests/test_skills.py` to validate
+7. Optionally run `python3 scripts/skill-tools.py validate /skill-name` for targeted checks
 
 ## Adding a Template
 

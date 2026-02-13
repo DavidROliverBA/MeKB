@@ -4,6 +4,31 @@ All notable changes to MeKB are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project uses date-based versioning.
 
+## [v3.1] - 2026-02-13
+
+Community ideas adoption and skill tooling fixes.
+
+### Added
+
+- **3 new skills:** `/de-ai-ify` (strip AI patterns from text), `/inbox` (find unprocessed files), `/spotlight` (macOS Spotlight search for non-markdown files)
+- **kepano frontmatter** on all 40 skills — `name` field in YAML frontmatter for Anthropic skills convention
+- **`migrate-skill-frontmatter.py`** — migration script with `--dry-run` and `--validate` flags
+- **`.claude/AGENDA.md`** — session working state template (current focus, pending decisions, session notes)
+- **`completedDate: null`** field in Task template for tracking when tasks were finished
+- **`> [!ai-suggestion]` callout convention** for marking AI-generated content needing review
+- **Claim-based naming convention** — optional thesis-in-title pattern for Note/Concept types
+- **Frontmatter-aware tests** — `test_frontmatter_skipping` and `test_skill_name_from_directory` in test_skill_tools.py
+
+### Changed
+
+- **Fixed `skill-tools.py`** — all glob patterns updated from `*.md` to `*/SKILL.md` for subdirectory skill layout; `parse_skill()` now skips YAML frontmatter; skill name derived from parent directory
+- **Fixed `test_skills.py`** — updated to use `*/SKILL.md` glob, frontmatter-aware header extraction, directory-based name matching
+- **Fixed `test_skill_tools.py`** — test helpers create subdirectory structure, compare against `path.parent.name`
+- **Fixed CI workflow** — skill count uses `find -name "SKILL.md"` instead of `ls *.md`
+- **Enhanced `/daily`** — carries forward yesterday's unchecked items, checks overdue tasks, adds yesterday summary
+- **Enhanced `/q`** — `--similar` flag for vector-based similar note discovery
+- **Enhanced `/health`** — freshness cross-reference (flags `freshness: current` with stale `verified` dates)
+
 ## [v3.0] - 2026-02-06
 
 Production scripts, comprehensive test suite, and CI pipeline.

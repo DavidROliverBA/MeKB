@@ -32,7 +32,7 @@ MeKB/
 ├── Daily/              # Daily journal notes
 ├── Templates/          # 11 note templates
 ├── Archive/            # Completed/old content
-├── .claude/skills/     # 36 AI-powered skills
+├── .claude/skills/     # 40 AI-powered skills
 ├── scripts/            # 13 production Python scripts
 │   └── tests/          # 236 tests across 13 test files
 ├── .github/workflows/  # CI pipeline (7 parallel jobs)
@@ -44,7 +44,7 @@ MeKB/
 
 **11 Note Types:** Daily, Note, Concept, Task, Project, Meeting, Person, Resource, Decision, ActionItem, Interaction
 
-**36 Skills:** Capture, discover, review, automate, and maintain your knowledge
+**40 Skills:** Capture, discover, review, automate, and maintain your knowledge
 
 **13 Scripts:** Search, graph, site generation, notifications, scheduling — zero external dependencies
 
@@ -97,6 +97,7 @@ Works with any text editor. Enhanced experience with:
 | `/weblink <url>`   | Save URL with summary        |
 | `/clip <url>`      | Web clipper (YouTube, etc.)  |
 | `/voice`           | Voice note transcription     |
+| `/de-ai-ify`       | Rewrite AI text to sound human |
 
 ### Discover
 
@@ -111,6 +112,7 @@ Works with any text editor. Enhanced experience with:
 | `/graph`           | Explore note connections     |
 | `/connections`     | Deep relationship analysis   |
 | `/browse <url>`    | Fetch and extract web content|
+| `/spotlight`       | Search non-markdown files (macOS) |
 
 ### Review & Reflect
 
@@ -155,6 +157,7 @@ Works with any text editor. Enhanced experience with:
 | ----------- | --------------------------- |
 | `/health`   | Vault health check          |
 | `/orphans`  | Find unlinked notes         |
+| `/inbox`    | Find unprocessed files      |
 | `/classify` | Manage security levels      |
 | `/start`    | Guided onboarding           |
 
