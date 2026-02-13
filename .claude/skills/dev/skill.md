@@ -41,7 +41,7 @@ Issues checked:
 
 Create a new skill file from the standard template:
 
-1. Create `.claude/skills/my-skill.md` with this structure:
+1. Create `.claude/skills/my-skill/skill.md` with this structure:
 
 ```markdown
 # /my-skill
