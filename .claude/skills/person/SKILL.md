@@ -1,3 +1,7 @@
+---
+name: person
+---
+
 # /person
 
 Create a person note.

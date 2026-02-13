@@ -1,3 +1,7 @@
+---
+name: connections
+---
+
 # /connections
 
 Explore typed relationships between notes in your knowledge graph.

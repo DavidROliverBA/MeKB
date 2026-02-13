@@ -1,3 +1,7 @@
+---
+name: orphans
+---
+
 # /orphans
 
 Find notes with no links.

@@ -1,3 +1,7 @@
+---
+name: meeting
+---
+
 # /meeting
 
 Create a meeting note.

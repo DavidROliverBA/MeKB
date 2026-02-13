@@ -1,3 +1,7 @@
+---
+name: weblink
+---
+
 # /weblink
 
 Save a URL with summary.

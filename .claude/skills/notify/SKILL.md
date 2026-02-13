@@ -1,3 +1,7 @@
+---
+name: notify
+---
+
 # /notify
 
 Send notifications via desktop, Slack, Discord, or email.

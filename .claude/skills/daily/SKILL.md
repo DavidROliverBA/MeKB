@@ -1,3 +1,7 @@
+---
+name: daily
+---
+
 # /daily
 
 Create today's daily note.
@@ -11,6 +15,13 @@ Create today's daily note.
    - Replace `{{date}}` with today's date
    - Create in `Daily/YYYY/` folder (create year folder if needed)
 5. Confirm: "Created daily note for YYYY-MM-DD"
+6. **Yesterday review:** Read yesterday's daily note (calculate the date). Extract any unchecked `- [ ]` items and carry them forward into today's note under a "Carried Forward" section
+7. **Overdue task check:** Search for incomplete tasks with past due dates:
+   ```bash
+   python3 scripts/search.py "completed: false" --type Task 2>/dev/null
+   ```
+   Filter results by `due` date < today. List any overdue tasks in today's note
+8. **Yesterday's summary:** Add a brief "Yesterday" section showing what was completed (checked `- [x]` items) vs what was carried forward
 
 ## Example
 

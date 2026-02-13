@@ -1,3 +1,7 @@
+---
+name: calendar
+---
+
 # /calendar
 
 Sync with calendar to create meeting notes automatically.

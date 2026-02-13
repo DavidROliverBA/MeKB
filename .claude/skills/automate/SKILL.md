@@ -1,3 +1,7 @@
+---
+name: automate
+---
+
 # /automate
 
 Create custom recurring tasks and automation routines.

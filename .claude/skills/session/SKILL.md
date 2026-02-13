@@ -1,3 +1,7 @@
+---
+name: session
+---
+
 # /session
 
 Track and recall what happened during this working session.

@@ -1,3 +1,7 @@
+---
+name: schedule
+---
+
 # /schedule
 
 Manage scheduled vault maintenance jobs.

@@ -1,3 +1,7 @@
+---
+name: graph
+---
+
 # /graph
 
 Explore and understand your knowledge graph connections.

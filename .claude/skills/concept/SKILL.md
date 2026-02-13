@@ -1,3 +1,7 @@
+---
+name: concept
+---
+
 # /concept
 
 Create a concept definition note.

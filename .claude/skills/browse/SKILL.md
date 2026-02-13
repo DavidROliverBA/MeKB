@@ -1,3 +1,7 @@
+---
+name: browse
+---
+
 # /browse
 
 Fetch and extract web content. Uses Playwright for JS-rendered pages, falls back to urllib.

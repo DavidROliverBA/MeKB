@@ -1,3 +1,7 @@
+---
+name: related
+---
+
 # /related
 
 Find notes connected to a topic.

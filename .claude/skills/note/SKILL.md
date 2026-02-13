@@ -1,3 +1,7 @@
+---
+name: note
+---
+
 # /note
 
 Create a knowledge note.

@@ -1,3 +1,7 @@
+---
+name: recent
+---
+
 # /recent
 
 Show recently modified notes.

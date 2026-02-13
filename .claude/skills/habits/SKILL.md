@@ -1,3 +1,7 @@
+---
+name: habits
+---
+
 # /habits
 
 Simple habit tracking in daily notes.

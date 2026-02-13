@@ -1,3 +1,7 @@
+---
+name: search
+---
+
 # /search
 
 Semantic search - find notes by meaning, not just keywords.

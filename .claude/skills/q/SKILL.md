@@ -1,3 +1,7 @@
+---
+name: q
+---
+
 # /q
 
 Fast full-text search across all notes.
@@ -8,6 +12,7 @@ Fast full-text search across all notes.
 /q <search term>
 /q <term> --type Concept
 /q "exact phrase"
+/q --similar "Note - My Idea"
 ```
 
 ## Instructions
@@ -29,6 +34,16 @@ This returns BM25-ranked results with snippets and is ~1000x faster than grep.
 ```bash
 python3 scripts/build-index.py
 ```
+
+### Similar Notes (--similar flag)
+
+If `--similar "Note - Title"` is passed and `.mekb/embeddings.json` exists, find semantically similar notes:
+
+```bash
+python3 scripts/search.py --similar "Note - Title" --limit 10
+```
+
+This uses vector embeddings to find notes with related meaning, even if they don't share keywords. For full semantic search with more options, use `/search`.
 
 ### Fallback: Grep Search
 

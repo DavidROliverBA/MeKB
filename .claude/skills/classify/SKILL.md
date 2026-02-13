@@ -1,3 +1,7 @@
+---
+name: classify
+---
+
 # /classify
 
 Manage and audit note classifications.

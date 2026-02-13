@@ -1,3 +1,7 @@
+---
+name: start
+---
+
 # /start
 
 Guided onboarding for new MeKB users. Creates personalised first notes based on user preferences.

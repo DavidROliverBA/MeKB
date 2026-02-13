@@ -1,3 +1,7 @@
+---
+name: site
+---
+
 # /site
 
 Build a static HTML site from your notes.

@@ -1,3 +1,7 @@
+---
+name: task
+---
+
 # /task
 
 Quick-create a task.

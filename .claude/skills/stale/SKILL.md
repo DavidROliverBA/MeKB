@@ -1,3 +1,7 @@
+---
+name: stale
+---
+
 # /stale
 
 Find notes that haven't been verified recently and may need review.

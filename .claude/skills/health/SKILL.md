@@ -1,3 +1,7 @@
+---
+name: health
+---
+
 # /health
 
 Quick vault health check.
@@ -14,13 +18,18 @@ Quick vault health check.
 2. Find notes missing required frontmatter (`type`, `title`)
 3. Count orphan notes (no incoming or outgoing links)
 4. Check for broken links (links to non-existent notes)
-5. Check integration status:
+5. **Freshness cross-reference:** Find notes where `freshness: current` but `verified` date is >90 days ago. Use:
+   ```bash
+   python3 scripts/stale-check.py --json 2>/dev/null
+   ```
+   Cross-reference the output: any note marked `freshness: current` with a `verified` date older than 90 days should be flagged as "stale freshness claim"
+6. Check integration status:
    - Search index: `python3 scripts/build-index.py --stats`
    - Knowledge graph: `python3 scripts/build-graph.py --stats`
    - Embeddings: check if `.mekb/embeddings.json` exists
    - Notifications: `python3 scripts/notify.py --list`
    - Scheduled jobs: `python3 scripts/schedule.py status`
-6. Display summary:
+7. Display summary:
 
 ## Example Output
 

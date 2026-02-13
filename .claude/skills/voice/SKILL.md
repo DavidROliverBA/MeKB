@@ -1,3 +1,7 @@
+---
+name: voice
+---
+
 # /voice
 
 Record and transcribe voice notes using AI transcription.

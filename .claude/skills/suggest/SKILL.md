@@ -1,3 +1,7 @@
+---
+name: suggest
+---
+
 # /suggest
 
 Get AI-powered suggestions for linking the current note to related content.

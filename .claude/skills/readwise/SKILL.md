@@ -1,3 +1,7 @@
+---
+name: readwise
+---
+
 # /readwise
 
 Sync highlights from Readwise into MeKB Resource notes.

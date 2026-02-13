@@ -1,3 +1,7 @@
+---
+name: clip
+---
+
 # /clip
 
 Save web content as a Resource note with metadata and summary.

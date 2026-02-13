@@ -1,3 +1,7 @@
+---
+name: weekly
+---
+
 # /weekly
 
 Generate a weekly review summarising what you captured and learned.

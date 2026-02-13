@@ -1,3 +1,7 @@
+---
+name: people
+---
+
 # /people
 
 Manage relationships and track interactions with people in your network.

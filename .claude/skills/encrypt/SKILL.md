@@ -1,3 +1,7 @@
+---
+name: encrypt
+---
+
 # /encrypt
 
 Encrypt and decrypt classified notes using age.

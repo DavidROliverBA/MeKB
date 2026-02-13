@@ -1,3 +1,7 @@
+---
+name: export
+---
+
 # /export
 
 Export notes in shareable formats.

@@ -1,3 +1,7 @@
+---
+name: dev
+---
+
 # /dev
 
 Skill development workflow - create, test, and manage MeKB skills.

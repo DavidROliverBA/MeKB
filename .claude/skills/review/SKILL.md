@@ -1,3 +1,7 @@
+---
+name: review
+---
+
 # /review
 
 Spaced repetition review - surfaces random old notes for reflection.

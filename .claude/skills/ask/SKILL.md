@@ -1,3 +1,7 @@
+---
+name: ask
+---
+
 # /ask
 
 Ask questions about your vault and get AI-powered answers.
