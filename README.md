@@ -321,6 +321,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and [TOOLS.md]
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Development guidelines — tests, PR checklist, adding scripts/skills |
 | [SECURITY.md](SECURITY.md) | Security features — classification, access control, secret detection |
 | [docs/ENCRYPTION.md](docs/ENCRYPTION.md) | Encryption guide — installation, daily use, key management, uninstall |
+| [docs/SKILL-TUTORIALS.md](docs/SKILL-TUTORIALS.md) | Tutorials for /de-ai-ify, /inbox, /spotlight with examples |
 | [SOUL.md](SOUL.md) | Project philosophy and design principles |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and release notes |
 | [scripts/README.md](scripts/README.md) | Detailed documentation for all 13 production scripts |
