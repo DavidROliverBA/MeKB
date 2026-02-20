@@ -207,6 +207,25 @@ Met with [[Person - Jane Smith]] about [[Project - Website]].
 - **Claude Code:** `/q search term`
 - **Terminal:** `python3 scripts/search.py "search term"`
 
+## Memory & Persistence
+
+MeKB includes a two-layer persistence system so your AI assistant learns between sessions:
+
+**Layer 1: MCP Memory Graph** — Cross-session learning stored in `Memory/memory.jsonl` via the [MCP memory server](https://github.com/modelcontextprotocol/servers/tree/main/src/memory). Lessons from failures, conventions, runbooks for known errors, and knowledge gaps. Configured in `.mcp.json`.
+
+**Layer 2: Knowledge Graph Index** — Structured lookups across all your notes. Built from YAML frontmatter and wiki-links by `scripts/build-graph.py`. Handles "find all decisions about X" queries so memory does not have to.
+
+**Security hooks** — `secret-scanner.py` blocks Claude from writing credentials to files. `classification-guard.py` blocks reads of confidential/secret notes. Both fire automatically on every Edit/Write operation.
+
+```bash
+# Build the knowledge graph
+python3 scripts/build-graph.py
+
+# Memory is automatic — Claude Code reads .mcp.json and connects to the server
+```
+
+See the [architecture article](https://medium.com/@DavidROliverBA) for the full design rationale.
+
 ## Key Features
 
 ### Knowledge Compounding

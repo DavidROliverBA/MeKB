@@ -14,6 +14,20 @@ MeKB (Me Knowledge Base) is a personal knowledge management system built on plai
 2. **Collaboration is Power** - Knowledge flows between people. Easy to share, easy to receive.
 3. **Your Data Deserves Protection** - Classify sensitive info. Be thoughtful about what you share.
 
+## MCP Memory
+
+MeKB uses the MCP memory server (`.mcp.json`) for cross-session learning. Memory stores lessons, conventions, runbooks, and knowledge gaps — NOT vault content (that lives in the graph index).
+
+**Tools available:** `create_entities`, `search_nodes`, `read_graph`, `add_observations`, `delete_entities`
+
+**Entity types:** LessonLearned, Convention, Runbook, KnowledgeGap, SessionSummary
+
+**Constraints:**
+- Keep under 50 entities (no pagination on read_graph)
+- Use single-keyword searches (contiguous substring matching, not full-text)
+- Never issue parallel memory writes (no file locking)
+- Memory file: `Memory/memory.jsonl`
+
 ## Quick Start
 
 **New to MeKB?** Run `/start` for guided onboarding that creates personalised first notes.

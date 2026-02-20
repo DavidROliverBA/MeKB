@@ -22,6 +22,16 @@
             "command": "python3 .claude/hooks/classification-guard.py"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/secret-scanner.py",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }

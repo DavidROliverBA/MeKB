@@ -49,6 +49,11 @@ secret/
 # Automations config
 .mekb/automations.yaml
 
+# MCP memory (cross-session learning — local data, not committed)
+Memory/memory.jsonl
+Memory/memory.jsonl.bak
+Memory/memory.jsonl.tmp
+
 # Session memory
 .mekb/sessions/
 
