@@ -30,12 +30,15 @@ cd my-knowledge-base
 ```
 MeKB/
 ├── Daily/              # Daily journal notes
+├── Memory/             # MCP memory graph (cross-session learning)
 ├── Templates/          # 11 note templates
 ├── Archive/            # Completed/old content
 ├── .claude/skills/     # 40 AI-powered skills
+├── .claude/hooks/      # Security hooks (secret scanner, classification guard)
 ├── scripts/            # 13 production Python scripts
 │   └── tests/          # 236 tests across 13 test files
 ├── .github/workflows/  # CI pipeline (7 parallel jobs)
+├── .mcp.json           # MCP server configuration (memory)
 ├── CLAUDE.md           # AI assistant instructions
 ├── CHANGELOG.md        # Version history
 ├── SOUL.md             # Project philosophy
@@ -209,22 +212,28 @@ Met with [[Person - Jane Smith]] about [[Project - Website]].
 
 ## Memory & Persistence
 
-MeKB includes a two-layer persistence system so your AI assistant learns between sessions:
+MeKB includes a two-layer persistence system so your AI assistant learns between sessions instead of starting from scratch every time.
 
-**Layer 1: MCP Memory Graph** — Cross-session learning stored in `Memory/memory.jsonl` via the [MCP memory server](https://github.com/modelcontextprotocol/servers/tree/main/src/memory). Lessons from failures, conventions, runbooks for known errors, and knowledge gaps. Configured in `.mcp.json`.
+| Layer | What It Stores | How It Works |
+|-------|---------------|--------------|
+| **MCP Memory Graph** | Cross-session learning — lessons, conventions, runbooks, knowledge gaps | JSONL file via [@modelcontextprotocol/server-memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory) |
+| **Knowledge Graph Index** | Vault structure — notes, relationships, metadata | Built from YAML frontmatter and wiki-links by `scripts/build-graph.py` |
 
-**Layer 2: Knowledge Graph Index** — Structured lookups across all your notes. Built from YAML frontmatter and wiki-links by `scripts/build-graph.py`. Handles "find all decisions about X" queries so memory does not have to.
-
-**Security hooks** — `secret-scanner.py` blocks Claude from writing credentials to files. `classification-guard.py` blocks reads of confidential/secret notes. Both fire automatically on every Edit/Write operation.
+The key principle: **each layer owns unique data**. Memory stores what you have learned. The graph stores what exists. Neither duplicates the other.
 
 ```bash
-# Build the knowledge graph
+# Build the knowledge graph (structured lookups)
 python3 scripts/build-graph.py
 
 # Memory is automatic — Claude Code reads .mcp.json and connects to the server
+# No setup needed beyond cloning the repo
 ```
 
-See the [architecture article](https://medium.com/@DavidROliverBA) for the full design rationale.
+**Security hooks** run automatically on every operation:
+- `secret-scanner.py` — blocks Claude from writing credentials to files (18 regex patterns)
+- `classification-guard.py` — blocks reads of confidential/secret notes
+
+See [docs/MEMORY.md](docs/MEMORY.md) for the complete guide — entity types, search limitations, maintenance, and daily usage. See the [architecture article](https://medium.com/@DavidROliverBA) for the full design rationale.
 
 ## Key Features
 
@@ -339,6 +348,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and [TOOLS.md]
 | [TOOLS.md](TOOLS.md) | Complete tooling reference — all scripts, skills, search tiers, CI |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Development guidelines — tests, PR checklist, adding scripts/skills |
 | [SECURITY.md](SECURITY.md) | Security features — classification, access control, secret detection |
+| [docs/MEMORY.md](docs/MEMORY.md) | Memory & persistence guide — two-layer architecture, entity types, search, maintenance |
 | [docs/ENCRYPTION.md](docs/ENCRYPTION.md) | Encryption guide — installation, daily use, key management, uninstall |
 | [docs/SKILL-TUTORIALS.md](docs/SKILL-TUTORIALS.md) | Tutorials for /de-ai-ify, /inbox, /spotlight with examples |
 | [SOUL.md](SOUL.md) | Project philosophy and design principles |

@@ -4,6 +4,24 @@ All notable changes to MeKB are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project uses date-based versioning.
 
+## [v3.2] - 2026-02-20
+
+Two-layer persistence system for cross-session learning.
+
+### Added
+
+- **MCP memory server** — `.mcp.json` configuration for `@modelcontextprotocol/server-memory`, storing cross-session learning in `Memory/memory.jsonl`
+- **Secret scanner hook** — `.claude/hooks/secret-scanner.py` blocks Edit/Write operations containing credential patterns (18 regex patterns covering AWS, GitHub, Slack, Stripe, OpenAI, Anthropic, and generic formats)
+- **Memory guide** — `docs/MEMORY.md` with entity types, search limitations, maintenance procedures, and daily usage
+- **Memory directory** — `Memory/` for MCP memory graph data (gitignored, local learning)
+
+### Changed
+
+- **README.md** — expanded Memory & Persistence section with architecture table, security hooks, and link to guide
+- **CLAUDE.md** — added MCP Memory section with entity types, constraints, and tool reference
+- **.gitignore** — added `Memory/memory.jsonl` exclusions
+- **.claude/settings.json** — wired secret-scanner hook alongside classification-guard
+
 ## [v3.1] - 2026-02-13
 
 Community ideas adoption and skill tooling fixes.
